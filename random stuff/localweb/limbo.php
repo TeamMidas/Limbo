@@ -7,7 +7,7 @@
 <?php
 require( 'includes/connect_db.php' ) ;
 
-$query = 'SELECT create_date, location_id, description FROM stuff ORDER BY create_date DESC' ;
+$query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC' ;
 
 $results = mysqli_query($dbc, $query) ;
 
@@ -31,18 +31,18 @@ if( $results )
   # starting the table.
   echo '<TABLE BORDER = 1>';
   echo '<TR>';
-  echo '<TH>Create Date</TH>';
-  echo '<TH>Location</TH>';
-  echo '<TH>Description</TH>';
+  echo '<TH>Date</TH>';
+  echo '<TH>Status</TH>';
+  echo '<TH>Stuff</TH>';
   echo '</TR>';
 
   # For each row result, generate a table row
   while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   {
     echo '<TR>' ;
-    echo '<TD>' . $row['create_date'] . '</TD>' ;
-    echo '<TD>' . $row['location_id'] . '</TD>' ;
-    echo '<TD>' . $row['description'] . '</TD>';
+    echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
+    echo '<TD>' . $row['status'] . '</TD>' ;
+    echo '<TD>' . $row['name'] . '</TD>';
 	echo '</TR>' ;
   }
 
