@@ -29,15 +29,15 @@ function load( $page = 'linkypresidents.php', $pid = -1 )
 # Validates the print name.
 # Returns -1 if validate fails, and >= 0 if it succeeds
 # which is the primary key id.
-function validate($prname = '')
+function validate($email = '', $pass = '')
 {
     global $dbc;
 
-    if(empty($prname))
+    if(empty($pass))
       return -1 ;
 
     # Make the query
-    $query = "SELECT number, lname FROM presidents WHERE lname='" . $prname . "'" ;
+    $query = "SELECT email, pass FROM users WHERE email='" . $email . "' AND pass= PASSWORD('" . $pass . "')" ;
     show_query($query) ;
 
     # Execute the query
@@ -51,8 +51,6 @@ function validate($prname = '')
     # We have at least one row, so get the first one and return it
     $row = mysqli_fetch_array($results, MYSQLI_ASSOC) ;
 
-    $num = $row [ 'number' ] ;
-
-    return intval($num) ;
+    return 1 ;
 }
 ?>
