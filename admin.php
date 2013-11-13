@@ -1,16 +1,41 @@
+<!--
+Stanley Yang
+Antony Liang
+
+-->
+
 <!DOCTYPE html>
 <html>
-<head>
-<title>Limbo</title>
-</head>
-<body>
 <?php
-#$logo = "images/dog.png" ;
+# Connect to MySQL server and the database
+require( 'includes/connect_db.php' ) ;
 
-$admin = "ADMIN" ;
+# Connect to MySQL server and the database
+require( 'includes/login_tools.php' ) ;
 
-echo "<h1>" . $admin . " </h1>" ;
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
+	$email = $_POST['email'] ;
+	$pass = $_POST['pass'] ;
+	
+    $success = validate($email, $pass) ;
+
+    if($success == -1)
+      echo '<P style=color:red>Login failed please try again.</P>' ;
+	  
+    else
+      echo '<p> you got in wheeeeee </p>'  ;
+}
 ?>
-</body>
+<!-- Get inputs from the user. -->
+<h1>Admin Login</h1>
+<form action="admin.php" method="POST">
+<table>
+<tr>
+<td>Username:</td><td><input type="text" name="email"></td>
+<td>Password:</td><td><input type="text" name="pass"></td>
+</tr>
+</table>
+<p><input type="submit" ></p>
+</form>
 </html>
