@@ -46,6 +46,19 @@ $menu="<form method='POST' action=''>
 		</select>
 	</form>";
 
+#create Time Lost dropdown
+$hours = '';
+$minutes = '';
+
+for ($i=1; $i<13; $i++){
+	$hours .="<option>" . $i . "</option>";
+}
+
+for ($i=0; $i<61; $i++){
+	$minutes .="<option>" . $i . "</option>";
+}
+
+
 ?>
 
 <form action="lost.php" method="POST">
@@ -78,28 +91,8 @@ $menu="<form method='POST' action=''>
 	</tr>
 	<tr>
 		<td>Time Lost:</td><td>
-							<select>
-								<option value='1'>1</option>
-								<option value='2'>2</option>
-								<option value='3'>3</option>
-								<option value='4'>4</option>
-								<option value='5'>5</option>
-								<option value='6'>6</option>
-								<option value='7'>7</option>
-								<option value='8'>8</option>
-								<option value='9'>9</option>
-								<option value='10'>10</option>
-								<option value='11'>11</option>
-								<option value='12'>12</option>
-							</select>
-							<select>
-								<option value='00'>00</option>
-								<option value='10'>10</option>
-								<option value='20'>20</option>
-								<option value='30'>30</option>
-								<option value='40'>40</option>
-								<option value='50'>50</option>
-							</select>
+							<select><?php echo $hours?></select>
+							<select><?php echo $minutes?></select>
 							<select>
 								<option value='AM'>AM</option>
 								<option value='PM'>PM</option>
