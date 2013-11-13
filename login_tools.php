@@ -52,4 +52,13 @@ function validate($email = '', $pass = '')
 
     return 1 ;
 }
+
+function changePassword($email = '', $pass = ''){
+	global $dbc;
+	
+	$query = "UPDATE users SET pass = PASSWORD('" . $pass . "') WHERE email = '" . $email . "'";
+	show_query($query) ;
+	$results = mysqli_query( $dbc, $query ) ;
+	check_results($results);
+}
 ?>
