@@ -106,7 +106,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	}
 	#submit
 	if(!$error){
-		$input = insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $time, $location, $description, $pic) ;
+		$input = insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic) ;
 	}
 }
 
