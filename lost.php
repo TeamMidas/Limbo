@@ -14,10 +14,23 @@
 <?php
 require( 'includes/connect_db.php' ) ;
 
-$query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC' ;
+$query = 'SELECT name FROM locations ORDER BY name ASC' ;
 
 $results = mysqli_query($dbc, $query) ;
 
+#populate locations dropdown menu
+$options = '';
+
+while($row = mysqli_fetch_array($results, MYSQLI_ASSOC))
+{
+	$options .="<option>" . $row['name'] . "</option>";
+}
+
+$menu="<form method='POST' action=''>
+		<select name='Locations'>
+		" . $options . "
+		</select>
+	</form>";
 
 ?>
 
@@ -80,7 +93,7 @@ $results = mysqli_query($dbc, $query) ;
 							</td>
 	</tr>
 	<tr>
-		<td>Location Lost:</td><td>WILL ADD LOCATIONS</td>
+		<td>Location Lost:</td><td><?php echo $menu ?></td>
 	</tr>
 	<tr>
 		<td>Description:</td><td><input type="text" name="description" value="<?php if (isset($_POST['description'])) echo $_POST['description']; ?>" ></td>
