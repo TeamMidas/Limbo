@@ -20,11 +20,11 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	
     $success = validate($email, $pass) ;
 
-    if($success == -1)
-      echo '<P style=color:red>Login failed please try again.</P>' ;
+    if($success != -1)
+      load('adminHome.php');
 	  
     else
-      echo '<p> you got in wheeeeee </p>'  ;
+	  echo '<P style=color:red>Login Failed</P>' ;
 }
 ?>
 
