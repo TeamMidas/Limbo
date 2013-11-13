@@ -149,5 +149,69 @@ function check_results($results) {
   if($results != true)
     echo '<p>SQL ERROR = ' . mysqli_error( $dbc ) . '</p>'  ;
 }
+#checks if number is empty, non-numeric, or less than 0
+function valid_number($num){
+  if(empty($num) || !is_numeric($num)){
+    return false;
+    }
+  else {
+    $num = intval($num);
+    if($num <= 0)
+      return false;
+  }
+  return true;
+}
+#checks if the name is empty
+function valid_name($name){
+  if(empty($name)){
+    return false;
+    }
+  else
+    return true;
+}
+function valid_phone($phone){
+  if(empty($phone)){
+    return false;
+  }
+  if(strlen($phone) > 10){
+    #check for '-'
+    if(strpos($phone, '-') !== false){
+      #replace all '-' found
+      $phone = str_replace('-', '', $phone);
+    }
+    else{
+      return false;
+    }
+  }
+  else
+    return true;
+}
+function valid_email($email){
+  if(empty($email) || (strpos($email, '@') === false)){
+    return false;
+  }
+  else
+    return true;
+}
+function valid_date($date){
+  if(empty($date)){
+    return false;
+    }
+  else
+    return true;
+}
+function valid_description($description){
+  if(empty($description)){
+    return false;
+    }
+  else
+    return true;
+}
+# Inserts user inputs from Lost page into database
+function insert_lost($dbc){
+
+
+}
+
 
 ?>
