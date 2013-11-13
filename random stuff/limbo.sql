@@ -46,15 +46,43 @@ VALUES ('admin', 'admin', 'admin@admin.com', 'gaze11e', Now());
 
 INSERT INTO locations(create_date, update_date, name)
 VALUES
-(Now(), Now(), 'Hancock'),
-(Now(), Now(), 'Dyson'),
-(Now(), Now(), 'Lowell Thomas'),
-(Now(), Now(), 'Fontaine'),
+
+(Now(), Now(), 'Byrne House'),
+(Now(), Now(), 'Our Lady Seat of Wisdom Chapel'),
+(Now(), Now(), 'Champagnat Hall'),
+(Now(), Now(), 'Cornell Boathouse'),
+(Now(), Now(), 'Donnelly Hall'),
+(Now(), Now(), 'Margaret M. and Charles H. Dyson Center'),
+(Now(), Now(), 'Fern Tor'),
 (Now(), Now(), 'Fontaine Annex'),
-(Now(), Now(), 'Donnelly'),
-(Now(), Now(), 'Rotunda'),
-(Now(), Now(), 'Boat House'),
-(Now(), Now(), 'McCann Gym');
+(Now(), Now(), 'Fontaine Hall'),
+(Now(), Now(), 'Foy Townhouses'),
+(Now(), Now(), 'Fulton Street Townhouses'),
+(Now(), Now(), 'New Fulton Townhouses'),
+(Now(), Now(), 'Gartland Commons'),
+(Now(), Now(), 'Greystone Hall'),
+(Now(), Now(), 'Hancock Center'),
+(Now(), Now(), 'Kieran Gatehouse'),
+(Now(), Now(), 'Kirk House'),
+(Now(), Now(), 'Leo Hall'),
+(Now(), Now(), 'James A. Cannavino Library'),
+(Now(), Now(), 'Longview Park'),
+(Now(), Now(), 'Lowell Thomas Communications Center'),
+(Now(), Now(), 'Lower Townhouses'),
+(Now(), Now(), 'Marian Hall'),
+(Now(), Now(), 'Marist Boathouse'),
+(Now(), Now(), 'James J. McCann Recreational Center'),
+(Now(), Now(), 'Midrise Hall'),
+(Now(), Now(), 'New Townhouses'),
+(Now(), Now(), 'St. Ann''s Hermitage'),
+(Now(), Now(), 'St. Peter''s'),
+(Now(), Now(), 'Sheahan Hall'),
+(Now(), Now(), 'Steel Plant Art Studios'),
+(Now(), Now(), 'Student Center / Rotunda'),
+(Now(), Now(), 'Tenney Stadium'),
+(Now(), Now(), 'Tennis Pavillion'),
+(Now(), Now(), 'Lower West Cedar Townhouses'),
+(Now(), Now(), 'Upper West Cedar Townhouses');
 
 SELECT * FROM users;
 SELECT * FROM locations;
