@@ -48,18 +48,6 @@ $menu="<select name='location'>
 		" . $options . "
 		</select>";
 
-#create Time Lost dropdown
-$hours = '';
-$minutes = '';
-
-for ($i=1; $i<13; $i++){
-	$hours .="<option>" . $i . "</option>";
-}
-
-for ($i=0; $i<61; $i++){
-	$minutes .="<option>" . $i . "</option>";
-}
-
 #hook up the submit button
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	#all the user inputs
@@ -69,22 +57,6 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	$email = $_POST['email'] ;
 	$item_name = $_POST['item_name'] ;
 	$date = $_POST['datepicker'] ;
-	$hour = $_POST['hour'] ;
-	$minute = $_POST['minute'] ;
-	$AMPM = $_POST['AMPM'] ;
-
-	#create time in php TIME format
-	if($AMPM == "PM"){
-		$hour = intval($hour) + 12;
-	}
-	if(intval($hour) < 10){
-		$hour = strval("0" . $hour);
-	}
-	if(intval($minute) < 10){
-		$minute = strval("0" . $minute);
-	}
-
-	$time = $hour . "-" . $minute . "-00";
 
 	$location = $_POST['location'] ;
 	$description = $_POST['description'] ;
@@ -169,16 +141,6 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	</tr>
 	<tr>
 		<td>Date Lost:</td><td><input type="text" name="datepicker" id="datepicker" /></td>
-	</tr>
-	<tr>
-		<td>Time Lost:</td><td>
-							<select name='hour'><?php echo $hours?></select>
-							<select name='minute'><?php echo $minutes?></select>
-							<select name='AMPM'>
-								<option value='AM'>AM</option>
-								<option value='PM'>PM</option>
-							</select>
-							</td>
 	</tr>
 	<tr>
 		<td>Location Lost:</td><td><?php echo $menu ?></td>
