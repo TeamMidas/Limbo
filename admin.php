@@ -27,7 +27,11 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
       echo '<p> you got in wheeeeee </p>'  ;
 }
 ?>
+
 <!-- Get inputs from the user. -->
+<a href='./lost.php' style='margin-right:10px'>Lost Something</a>
+<a href='./found.php' style='margin-right:10px'>Found Something</a>
+<a href='./admin.php'>Admins</a>
 <h1>Admin Login</h1>
 <form action="admin.php" method="POST">
 <table>
