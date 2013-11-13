@@ -5,6 +5,7 @@
 </head>
 <body>
 
+<a href='./limbo.php' style='margin-right:10px'>Home</a>
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
 <a href='./admin.php'>Admins</a>
