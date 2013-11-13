@@ -2,6 +2,11 @@
 <html>
 <head>
 <title>Limbo</title>
+
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+ 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 </head>
 <body>
 
@@ -10,6 +15,15 @@
 <a href='./admin.php'>Admins</a>
 <h1>Lost Item</h1>
 <h4 style='margin-top:-15px'>Please fill out your contact information and information pertaining to the item you lost</h4>
+
+
+<script>
+//Creates the calendar
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
+
 
 <?php
 require( 'includes/connect_db.php' ) ;
@@ -60,7 +74,7 @@ $menu="<form method='POST' action=''>
 		<td>Item Name:</td><td><input type="text" name="item_name" value="<?php if (isset($_POST['item_name'])) echo $_POST['item_name']; ?>" ></td>
 	</tr>
 	<tr>
-		<td>Date Lost:</td><td>WILL ADD CALENDAR LATER</td>
+		<td>Date Lost:</td><td><input type="text" id="datepicker" /></td>
 	</tr>
 	<tr>
 		<td>Time Lost:</td><td>
