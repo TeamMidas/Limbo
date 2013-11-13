@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS locations(
 CREATE TABLE IF NOT EXISTS stuff(
 	id INT AUTO_INCREMENT,
 	location_id INT,
+	name TEXT NOT NULL,
 	description TEXT NOT NULL,
 	create_date DATETIME NOT NULL,
 	update_date TIMESTAMP NOT NULL,
@@ -84,10 +85,10 @@ VALUES
 (Now(), Now(), 'Lower West Cedar Townhouses'),
 (Now(), Now(), 'Upper West Cedar Townhouses');
 
-INSERT INTO stuff(location_id, description, create_date, room, finder, status)
+INSERT INTO stuff(location_id, name, description, create_date, room, finder, status)
 VALUES 
-(15, 'iPhone', '2013-10-21 14:11:09', '2020', 'Richard', 'found'),
-(19, 'Wallet', '2013-10-18 10:34:54', 'First Floor', 'Henry', 'found'),
-(5, 'Ring', '2013-11-12 18:11:09', '207', 'Chris', 'found');
+(15, 'iPhone', 'it is shiny', '2013-10-21', '2020', 'Richard', 'found'),
+(19, 'Wallet', 'cash money', '2013-10-18', 'First Floor', 'Henry', 'found'),
+(5, 'Ring', 'extra shiny', '2013-11-12', '207', 'Chris', 'found');
 
 SELECT * FROM stuff;

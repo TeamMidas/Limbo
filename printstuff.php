@@ -14,7 +14,7 @@ It demonstrates how to ...
 require( 'includes/connect_db.php' ) ;
 
 # Create a query to get the number, first name, and last name sorted by number
-$query = 'SELECT location_id, description, create_date FROM stuff' ;
+$query = 'SELECT create_date, status, name FROM stuff' ;
 
 # Execute the query
 $results = mysqli_query( $dbc , $query ) ;
@@ -27,18 +27,18 @@ if( $results )
   echo '<H1>Lost Stuff</H1>' ;
   echo '<TABLE BORDER = 1>';
   echo '<TR>';
-  echo '<TH>Location</TH>';
-  echo '<TH>Description</TH>';
-  echo '<TH>Created</TH>';
+  echo '<TH>Date</TH>';
+  echo '<TH>Status</TH>';
+  echo '<TH>Stuff</TH>';
   echo '</TR>';
 
   # For each row result, generate a table row
   while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   {
     echo '<TR>' ;
-    echo '<TD>' . $row['location_id'] . '</TD>' ;
-    echo '<TD>' . $row['description'] . '</TD>' ;
-    echo '<TD>' . $row['create_date'] . '</TD>';
+    echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
+    echo '<TD>' . $row['status'] . '</TD>' ;
+    echo '<TD>' . $row['name'] . '</TD>';
 	echo '</TR>' ;
   }
 
