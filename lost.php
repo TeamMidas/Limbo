@@ -8,6 +8,8 @@
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
 <a href='./admin.php'>Admins</a>
+<h1>Lost Item</h1>
+<h4 style='margin-top:-15px'>Please fill out your contact information and information pertaining to the item you lost</h4>
 
 <?php
 require( 'includes/connect_db.php' ) ;
@@ -16,9 +18,6 @@ $query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC'
 
 $results = mysqli_query($dbc, $query) ;
 
-
-echo "<h1>Lost Item</h1>" ;
-echo "<h4 style='margin-top:-15px'>Please fill out your contact information and information pertaining to the item you lost</h4>" ;
 
 ?>
 
@@ -51,7 +50,34 @@ echo "<h4 style='margin-top:-15px'>Please fill out your contact information and 
 		<td>Date Lost:</td><td>WILL ADD CALENDAR LATER</td>
 	</tr>
 	<tr>
-		<td>Time Lost:</td><td>WILL ADD TIME LATER</td>
+		<td>Time Lost:</td><td>
+							<select>
+								<option value='1'>1</option>
+								<option value='2'>2</option>
+								<option value='3'>3</option>
+								<option value='4'>4</option>
+								<option value='5'>5</option>
+								<option value='6'>6</option>
+								<option value='7'>7</option>
+								<option value='8'>8</option>
+								<option value='9'>9</option>
+								<option value='10'>10</option>
+								<option value='11'>11</option>
+								<option value='12'>12</option>
+							</select>
+							<select>
+								<option value='00'>00</option>
+								<option value='10'>10</option>
+								<option value='20'>20</option>
+								<option value='30'>30</option>
+								<option value='40'>40</option>
+								<option value='50'>50</option>
+							</select>
+							<select>
+								<option value='AM'>AM</option>
+								<option value='PM'>PM</option>
+							</select>
+							</td>
 	</tr>
 	<tr>
 		<td>Location Lost:</td><td>WILL ADD LOCATIONS</td>
