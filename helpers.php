@@ -208,9 +208,15 @@ function valid_description($description){
     return true;
 }
 # Inserts user inputs from Lost page into database
-function insert_lost($dbc){
+function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $time, $location, $description, $pic){
+  #$query = 'INSERT INTO presidents(number, fname, lname) VALUES (' . $number . ' , "' . $fname . '", "' . $lname . '" )' ;
+  $query = 'INSERT INTO stuff() VALUES ()' ;
+  show_query($query);
 
+  $results = mysqli_query($dbc,$query) ;
+  check_results($results) ;
 
+  return $results ;
 }
 
 
