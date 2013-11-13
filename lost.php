@@ -40,11 +40,9 @@ while($row = mysqli_fetch_array($results, MYSQLI_ASSOC))
 	$options .="<option>" . $row['name'] . "</option>";
 }
 
-$menu="<form method='POST' action=''>
-		<select name='Locations'>
+$menu="<select name='Locations'>
 		" . $options . "
-		</select>
-	</form>";
+		</select>";
 
 #create Time Lost dropdown
 $hours = '';
@@ -87,13 +85,13 @@ for ($i=0; $i<61; $i++){
 		<td>Item Name:</td><td><input type="text" name="item_name" value="<?php if (isset($_POST['item_name'])) echo $_POST['item_name']; ?>" ></td>
 	</tr>
 	<tr>
-		<td>Date Lost:</td><td><input type="text" id="datepicker" /></td>
+		<td>Date Lost:</td><td><input type="text" name="datepicker" id="datepicker" /></td>
 	</tr>
 	<tr>
 		<td>Time Lost:</td><td>
-							<select><?php echo $hours?></select>
-							<select><?php echo $minutes?></select>
-							<select>
+							<select name='hour'><?php echo $hours?></select>
+							<select name='minute'><?php echo $minutes?></select>
+							<select name='AMPM'>
 								<option value='AM'>AM</option>
 								<option value='PM'>PM</option>
 							</select>
