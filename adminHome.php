@@ -4,33 +4,43 @@
 <title>ADMIN'S Limbo</title>
 </head>
 <body>
+
+<a href='./lost.php' style='margin-right:10px'>Lost Something</a>
+<a href='./found.php' style='margin-right:10px'>Found Something</a>
+<a href='./admin.php'>Admins</a>
+<h1>Welcome Admin!</h1>
+<h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>
+<h3 style='display:inline'>Reported in last </h3>
+
+<select style='margin-bottom:10px'>
+<option value='week'>7 days</option>
+<option value='month'>1 month</option>
+<option value='trimonth'>3 months</option>
+</select>
+
 <?php
 require( 'includes/connect_db.php' ) ;
 
-$query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC' ;
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
+	$removeid = $_POST['secret'] ;
+	$deleteQuery = 'DELETE FROM stuff WHERE id = ' . $removeid ;
+	
+	$deleteResults = mysqli_query($dbc, $deleteQuery) ;
+}
+
+$query = 'SELECT id, create_date, status, name FROM stuff ORDER BY create_date DESC' ;
 
 $results = mysqli_query($dbc, $query) ;
 
-
-echo "<a href='./lost.php' style='margin-right:10px'>Lost Something</a>" ;
-echo "<a href='./found.php' style='margin-right:10px'>Found Something</a>" ;
-echo "<a href='./admin.php'>Admins</a>" ;
-echo "<h1>Welcome to Limbo!</h1>" ;
-echo "<h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>" ;
-echo "<h3 style='display:inline'>Reported in last </h3>" ;
-#dropdown menu
-echo "<select style='margin-bottom:10px'>" ;
-echo "<option value='week'>7 days</option>" ;
-echo "<option value='month'>1 month</option>" ;
-echo "<option value='trimonth'>3 months</option>" ;
-echo "</select>" ;
-
 if( $results )
 {
+
+  $id = 0 ;
   # But...wait until we know the query succeeded before
   # starting the table.
-  echo '<TABLE BORDER = 1>';
+  echo '<TABLE class="list">';
   echo '<TR>';
+  echo '<TH class="none"></TH>' ;
   echo '<TH>Date</TH>';
   echo '<TH>Status</TH>';
   echo '<TH>Stuff</TH>';
@@ -39,7 +49,9 @@ if( $results )
   # For each row result, generate a table row
   while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   {
+	$id = $row['id'] ;
     echo '<TR>' ;
+	echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="secret" value = "' . $id . '"> <input type="submit" value = "" class = "redButton"> </form> </TD>' ;
     echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
     echo '<TD>' . $row['status'] . '</TD>' ;
     echo '<TD>' . $row['name'] . '</TD>';
@@ -60,4 +72,36 @@ else
 
 ?>
 </body>
+
+<style>
+.redButton {
+    background:url(/images/redbutton.PNG) no-repeat;
+	float: center;
+    cursor:pointer;
+    width: 15px;
+    height: 15px;
+    border: none;
+}
+
+.list {
+	BORDER: solid 1px black;
+}
+
+.list td{
+	BORDER: solid 1px black;
+}
+
+.list td.none{
+	border-style: none;
+}
+
+.list th{
+	BORDER: solid 1px black;
+}
+
+.list th.none{
+	border-style: none;
+}
+</style>
+
 </html>
