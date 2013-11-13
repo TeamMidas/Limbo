@@ -163,7 +163,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 <br>
 
 <table>
-	<caption>Item Information</caption>
+	<caption style='width:262px'>Item Information</caption>
 	<tr>
 		<td>Item Name:</td><td><input type="text" name="item_name" value="<?php if (isset($_POST['item_name'])) echo $_POST['item_name']; ?>" ></td>
 	</tr>
