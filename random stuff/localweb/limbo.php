@@ -5,18 +5,58 @@
 </head>
 <body>
 <?php
-#$logo = "images/dog.png" ;
+require( 'includes/connect_db.php' ) ;
 
-$welcome = "Welcome to Limbo!" ; 
-$lost = "Lost Something" ;
-$found = "Found Something" ;
-$admins = "Admins" ;
+$query = 'SELECT time, status, stuff FROM stuff ORDER BY time DESC' ;
 
-echo "<a href='./lost.php'>" . $lost . "</a>" ;
-echo "<a href='./found.php'>" . $found . "</a>" ;
-echo "<a href='./admin.php'>" . $admins . "</a>" ;
-echo "<h1>" . $welcome . " </h1>" ;
+$results = mysqli_query($dbc, $query) ;
+
+
+echo "<a href='./lost.php'>Lost Something</a>" ;
+echo "<a href='./found.php'>Found Something</a>" ;
+echo "<a href='./admin.php'>Admins</a>" ;
+echo "<h1>Welcome to Limbo!</h1>" ;
 echo "<p>If you lost or found something, you're in luck: this is the place to report it." ;
+echo "<h4>Reported in last</h4>" ;
+#dropdown menu
+echo "<select>" ;
+echo "<option value='7'>7 days</option>" ;
+echo "<option value='30'>30 days</option>" ;
+echo "<option value='365'>1 year</option>" ;
+echo "</select>" ;
+
+if( $results )
+{
+  # But...wait until we know the query succeeded before
+  # starting the table.
+  echo '<TABLE BORDER = 1>';
+  echo '<TR>';
+  echo '<TH>Date/Time</TH>';
+  echo '<TH>Status</TH>';
+  echo '<TH>Stuff</TH>';
+  echo '</TR>';
+
+  # For each row result, generate a table row
+  while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+  {
+    echo '<TR>' ;
+    echo '<TD>' . $row['time'] . '</TD>' ;
+    echo '<TD>' . $row['status'] . '</TD>' ;
+    echo '<TD>' . $row['stuff'] . '</TD>';
+	echo '</TR>' ;
+  }
+
+  # End the table
+  echo '</TABLE>';
+
+  # Free up the results in memory
+  mysqli_free_result( $results ) ;
+}
+else
+{
+  # If we get here, something has gone wrong
+  echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+}
 
 ?>
 </body>
