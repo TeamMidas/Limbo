@@ -98,4 +98,4 @@ VALUES
 (6, 'Ring', 'extra shiny', '2013-11-12', '207', 'Daniel', 'lost');
 
 SELECT * FROM stuff;
-SELECT s.location_id, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id
+SELECT s.location_id, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id;
