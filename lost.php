@@ -21,13 +21,16 @@
 <script>
 //Creates the calendar
   $(function() {
-    $( "#datepicker" ).datepicker();
+    $("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
   });
+
+
 </script>
 
 
 <?php
 require( 'includes/connect_db.php' ) ;
+require( 'includes/helpers.php' ) ;
 
 $query = 'SELECT name FROM locations ORDER BY name ASC' ;
 
@@ -41,7 +44,7 @@ while($row = mysqli_fetch_array($results, MYSQLI_ASSOC))
 	$options .="<option>" . $row['name'] . "</option>";
 }
 
-$menu="<select name='Locations'>
+$menu="<select name='location'>
 		" . $options . "
 		</select>";
 
@@ -56,6 +59,72 @@ for ($i=1; $i<13; $i++){
 for ($i=0; $i<61; $i++){
 	$minutes .="<option>" . $i . "</option>";
 }
+
+#hook up the submit button
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
+	#all the user inputs
+	$first_name = $_POST['first_name'] ;
+	$last_name = $_POST['last_name'] ;
+	$phone_number = $_POST['phone_number'] ;
+	$email = $_POST['email'] ;
+	$item_name = $_POST['item_name'] ;
+	$date = $_POST['datepicker'] ;
+	$hour = $_POST['hour'] ;
+	$minute = $_POST['minute'] ;
+	$AMPM = $_POST['AMPM'] ;
+
+	#create time in php TIME format
+	if($AMPM == "PM"){
+		$hour = intval($hour) + 12;
+	}
+	if(intval($hour) < 10){
+		$hour = strval("0" . $hour);
+	}
+	if(intval($minute) < 10){
+		$minute = strval("0" . $minute);
+	}
+
+	$time = $hour . "-" . $minute . "-00";
+
+	$location = $_POST['location'] ;
+	$description = $_POST['description'] ;
+	#$pic = $_POST['pic'] ;
+	#validate inputs
+	if(!valid_name($first_name)){
+		#throw an error
+		echo '<p style="color:red">Please enter a first name</p>';
+	}
+	if(!valid_name($last_name)){
+		#throw an error
+		echo '<p style="color:red">Please enter a last name</p>';
+	}
+	if(!valid_phone($phone_number)){
+		#throw an error
+		echo '<p style="color:red">Please enter a valid phone number</p>';
+	}
+	if(!valid_email($email)){
+		#throw an error
+		echo '<p style="color:red">Please enter a valid email address</p>';
+	}
+	if(!valid_name($item_name)){
+		#throw an error
+		echo '<p style="color:red">Please enter a item name</p>';
+	}
+	if(!valid_date($date)){
+		#throw an error
+		echo '<p style="color:red">Please choose a date</p>';
+	}
+	#time and location will always be valid since they are enumerated
+	if(!valid_description($description)){
+		#throw an error
+		echo '<p style="color:red">Please provide a description</p>';
+	}
+
+
+	#submit
+	#$input = insert_lost($dbc, $number, $fname, $lname) ;
+}
+
 
 
 ?>
