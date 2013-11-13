@@ -88,41 +88,54 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
 	$location = $_POST['location'] ;
 	$description = $_POST['description'] ;
-	#$pic = $_POST['pic'] ;
+
+	$pic = '';
+	if(!empty($_POST['pic'])){
+		$pic = $_POST['pic'] ;
+	}
 	#validate inputs
+	#0 is okay, 1 is bad
+	$error = false;
 	if(!valid_name($first_name)){
 		#throw an error
 		echo '<p style="color:red">Please enter a first name</p>';
+		$error = true;
 	}
 	if(!valid_name($last_name)){
 		#throw an error
 		echo '<p style="color:red">Please enter a last name</p>';
+		$error = true;
 	}
 	if(!valid_phone($phone_number)){
 		#throw an error
 		echo '<p style="color:red">Please enter a valid phone number</p>';
+		$error = true;
 	}
 	if(!valid_email($email)){
 		#throw an error
 		echo '<p style="color:red">Please enter a valid email address</p>';
+		$error = true;
 	}
 	if(!valid_name($item_name)){
 		#throw an error
 		echo '<p style="color:red">Please enter a item name</p>';
+		$error = true;
 	}
 	if(!valid_date($date)){
 		#throw an error
 		echo '<p style="color:red">Please choose a date</p>';
+		$error = true;
 	}
 	#time and location will always be valid since they are enumerated
 	if(!valid_description($description)){
 		#throw an error
 		echo '<p style="color:red">Please provide a description</p>';
+		$error = true;
 	}
-
-
 	#submit
-	#$input = insert_lost($dbc, $number, $fname, $lname) ;
+	if(!$error){
+		$input = insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $time, $location, $description, $pic) ;
+	}
 }
 
 
@@ -150,7 +163,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 <br>
 
 <table>
-	<caption>Item Information</caption>
+	<caption style='width:262px'>Item Information</caption>
 	<tr>
 		<td>Item Name:</td><td><input type="text" name="item_name" value="<?php if (isset($_POST['item_name'])) echo $_POST['item_name']; ?>" ></td>
 	</tr>
