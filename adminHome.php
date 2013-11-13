@@ -22,10 +22,20 @@
 require( 'includes/connect_db.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
-	$removeid = $_POST['secret'] ;
-	$deleteQuery = 'DELETE FROM stuff WHERE id = ' . $removeid ;
+	$theID = -1;
 	
-	$deleteResults = mysqli_query($dbc, $deleteQuery) ;
+	if(isset($_POST['remove'])){
+		$theID = $_POST['remove'] ;
+		$deleteQuery = 'DELETE FROM stuff WHERE id = ' . $theID ;
+		$deleteResults = mysqli_query($dbc, $deleteQuery) ;
+	}
+	
+	if(isset($_POST['claimed'])){
+		$theID = $_POST['claimed'] ;
+		$claimQuery = 'UPDATE stuff SET status = "claimed" WHERE id = ' . $theID ;
+		$updateResults = mysqli_query($dbc, $claimQuery) ;
+	}
+	
 }
 
 $query = 'SELECT id, create_date, status, name FROM stuff ORDER BY create_date DESC' ;
@@ -44,6 +54,7 @@ if( $results )
   echo '<TH>Date</TH>';
   echo '<TH>Status</TH>';
   echo '<TH>Stuff</TH>';
+  echo '<TH class="none"></TH>';
   echo '</TR>';
 
   # For each row result, generate a table row
@@ -51,10 +62,11 @@ if( $results )
   {
 	$id = $row['id'] ;
     echo '<TR>' ;
-	echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="secret" value = "' . $id . '"> <input type="submit" value = "" class = "redButton"> </form> </TD>' ;
+	echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="remove" value = "' . $id . '"> <input type="submit" value = "" class = "redButton"> </form> </TD>' ;
     echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
     echo '<TD>' . $row['status'] . '</TD>' ;
     echo '<TD>' . $row['name'] . '</TD>';
+	echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="claimed" value = "' . $id . '"> <input type="submit" value = "" class = "greenCheck"> </form> </TD>' ;
 	echo '</TR>' ;
   }
 
@@ -76,9 +88,16 @@ else
 <style>
 .redButton {
     background:url(/images/redbutton.PNG) no-repeat;
-	float: center;
     cursor:pointer;
     width: 15px;
+    height: 15px;
+    border: none;
+}
+
+.greenCheck {
+    background:url(/images/greencheck.PNG) no-repeat;
+    cursor:pointer;
+    width: 20px;
     height: 15px;
     border: none;
 }
