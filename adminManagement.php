@@ -23,6 +23,27 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 		$deleteResults = mysqli_query($dbc, $deleteQuery) ;
 	}
 	
+	else {
+	
+		if(isset($_POST['email']) AND !empty($_POST['email']) AND !empty($_POST['pass']) AND !empty($_POST['fname']) AND !empty($_POST['lname'])){
+			$email = $_POST['email'] ;
+			$pass = $_POST['pass'] ;
+			$fname = $_POST['fname'] ;
+			$lname = $_POST['lname'] ;
+			$confirmpass = $_POST['confirmpass'] ;
+			
+			if($pass != $confirmpass){
+				echo '<P style=color:red>Passwords do not match<P>' ;
+			}
+			
+			else{
+				$insertQuery = "INSERT INTO users(first_name, last_name, email, pass, reg_date) VALUES ('" . $fname . "', '" . $lname . "', '" . $email . "', PASSWORD('" . $pass . "'), Now())" ;
+				$insertResults = mysqli_query($dbc, $insertQuery) ;
+			}
+			
+		}
+	
+	}
 }
 
 $query = 'SELECT user_id, first_name, email FROM users ORDER BY user_id DESC' ;
@@ -35,6 +56,7 @@ if( $results )
   $id = 0 ;
   # But...wait until we know the query succeeded before
   # starting the table.
+  echo '<h3>List of Admins</h3>' ;
   echo '<TABLE class="list">';
   echo '<TR>';
   echo '<TH class="none"></TH>' ;
@@ -66,6 +88,20 @@ else
 }
 
 ?>
+
+<h3> Add a new admin </h3>
+
+<form action="adminManagement.php" method="POST">
+<table class = "list">
+<tr><td class = "none">Email:</td><td><input type="text" name="email"></td></tr>
+<tr><td class = "none">First Name:</td><td><input type="text" name="fname"></td></tr>
+<tr><td class = "none">Last Name:</td><td><input type="text" name="lname"></td></tr>
+<tr><td class = "none">Password:</td><td><input type="text" name="pass"></td></tr>
+<tr><td class = "none">Confirm New Password:</td><td><input type="text" name="confirmpass"></td></tr>
+</table>
+<p><input type="submit" ></p>
+</form>
+
 </body>
 
 <style>
@@ -73,14 +109,6 @@ else
     background:url(/images/redbutton.PNG) no-repeat;
     cursor:pointer;
     width: 15px;
-    height: 15px;
-    border: none;
-}
-
-.greenCheck {
-    background:url(/images/greencheck.PNG) no-repeat;
-    cursor:pointer;
-    width: 20px;
     height: 15px;
     border: none;
 }
