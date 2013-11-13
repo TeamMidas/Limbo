@@ -16,8 +16,8 @@ echo "<a href='./lost.php' style='margin-right:10px'>Lost Something</a>" ;
 echo "<a href='./found.php' style='margin-right:10px'>Found Something</a>" ;
 echo "<a href='./admin.php'>Admins</a>" ;
 echo "<h1>Welcome to Limbo!</h1>" ;
-echo "<p>If you lost or found something, you're in luck: this is the place to report it." ;
-echo "<h4 style='display:inline'>Reported in last </h4>" ;
+echo "<h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>" ;
+echo "<h3 style='display:inline'>Reported in last </h3>" ;
 #dropdown menu
 echo "<select style='margin-bottom:10px'>" ;
 echo "<option value='week'>7 days</option>" ;
