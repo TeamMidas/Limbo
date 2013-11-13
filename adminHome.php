@@ -8,6 +8,7 @@
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
 <a href='./admin.php'>Admins</a>
+<a href='./accountChanges.php'>Change Account Info</a>
 <h1>Welcome Admin!</h1>
 <h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>
 <h3 style='display:inline'>Reported in last </h3>
