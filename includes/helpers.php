@@ -14,7 +14,6 @@ $query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC'
 $results = mysqli_query($dbc, $query) ;
 
 	if( $results ){
-	  # But...wait until we know the query succeeded before
 	  # starting the table.
 		echo '<TABLE BORDER = 1>';
 		echo '<TR>';
@@ -47,15 +46,13 @@ $results = mysqli_query($dbc, $query) ;
 
 function show_item($dbc, $name) {
 
-
-	# Create a query to get the name and price sorted by price
 	$query = 'SELECT owner FROM stuff WHERE name = "' . $name . '"';
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
 	check_results($results) ;
 	$row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ;
-
-	# Create a query to get the name and price sorted by price
+	
+	
 	if($row['owner'] != NULL){
 		$query = 'SELECT s.name, s.description, s.create_date, s.status, s.owner, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
 	}
@@ -70,11 +67,10 @@ function show_item($dbc, $name) {
 	# Show results
 	if( $results )
 	{
-  		# But...wait until we know the query succeed before
-  		# rendering the table start.
+
   		echo '<TABLE BORDER = 1>';
 
-  		# For each row result, generate a table row
+
   		$row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ;
 
 		echo '<h1>' . $row['name'] . '</h1>' ;
@@ -132,63 +128,6 @@ function show_item($dbc, $name) {
   		# Free up the results in memory
   		mysqli_free_result( $results ) ;
 	}
-}
-
-function show_record($dbc, $num) {
-	# Create a query to get the name and price sorted by price
-	$query = 'SELECT number, fname, lname FROM presidents WHERE number = ' . $num ;
-
-	# Execute the query
-	$results = mysqli_query( $dbc , $query ) ;
-	check_results($results) ;
-
-	# Show results
-	if( $results )
-	{
-  		# But...wait until we know the query succeed before
-  		# rendering the table start.
-  		echo '<H1>Requested President</H1>' ;
-  		echo '<TABLE BORDER = 1>';
-  		echo '<TR>';
-		echo '<TH>Number</TH>';
-  		echo '<TH>First Name</TH>';
-  		echo '<TH>Last Name</TH>';
-  		echo '</TR>';
-
-  		# For each row result, generate a table row
-  		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
-  		{
-    		echo '<TR>' ;
-			echo '<TD>' . $row['number'] . '</TD>' ;
-    		echo '<TD>' . $row['fname'] . '</TD>' ;
-    		echo '<TD>' . $row['lname'] . '</TD>' ;
-    		echo '</TR>' ;
-  		}
-
-  		# End the table
-  		echo '</TABLE>';
-
-  		# Free up the results in memory
-  		mysqli_free_result( $results ) ;
-	}
-}
-
-function insert_record($dbc, $number, $fname, $lname) {
-  $query = 'INSERT INTO presidents(number, fname, lname) VALUES (' . $number . ' , "' . $fname . '", "' . $lname . '" )' ;
-  show_query($query);
-
-  $results = mysqli_query($dbc,$query) ;
-  check_results($results) ;
-
-  return $results ;
-}
-
-# Shows the query as a debugging aid
-function show_query($query) {
-  global $debug;
-
-  if($debug)
-    echo "<p>Query = $query</p>" ;
 }
 
 # Checks the query results as a debugging aid
