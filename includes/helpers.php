@@ -48,7 +48,7 @@ $results = mysqli_query($dbc, $query) ;
 function show_item($dbc, $name) {
 
 	# Create a query to get the name and price sorted by price
-	$query = 'SELECT s.name, s.description, s.create_date, s.status, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = ' . $name ;
+	$query = 'SELECT s.name, s.description, s.create_date, s.status, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
 
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
@@ -59,29 +59,30 @@ function show_item($dbc, $name) {
 	{
   		# But...wait until we know the query succeed before
   		# rendering the table start.
-  		echo '<H1>ITEM</H1>' ;
   		echo '<TABLE BORDER = 1>';
 
   		# For each row result, generate a table row
-  		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
-  		{
-			echo '<TR>' ;
-			echo '<TH>Date</TH>';
-			echo '<TD>' . $row['s.create_date'] . '</TD>' ;
-			echo '</TR>' ;
-			echo '<TR>' ;
-			echo '<TH>Status</TH>';
-			echo '<TD>' . $row['s.status'] . '</TD>' ;
-			echo '</TR>' ;
-			echo '<TR>' ;
-			echo '<TH>Location</TH>';
-			echo '<TD>' . $row['l.name'] . '</TD>' ;
-			echo '</TR>' ;
-			echo '<TR>' ;
-			echo '<TH>Description</TH>';
-			echo '<TD>' . $row['s.description'] . '</TD>' ;
-			echo '</TR>' ;
-  		}
+  		$row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ;
+
+		echo '<h1>' . $row['name'] . '</h1>' ;
+		
+		echo '<TR>' ;
+		echo '<TH>Date</TH>';
+		echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
+		echo '</TR>' ;
+		echo '<TR>' ;
+		echo '<TH>Status</TH>';
+		echo '<TD>' . $row['status'] . '</TD>' ;
+		echo '</TR>' ;
+		echo '<TR>' ;
+		echo '<TH>Location</TH>';
+		echo '<TD>' . $row['location'] . '</TD>' ;
+		echo '</TR>' ;
+		echo '<TR>' ;
+		echo '<TH>Description</TH>';
+		echo '<TD>' . $row['description'] . '</TD>' ;
+		echo '</TR>' ;
+ 
 
   		# End the table
   		echo '</TABLE>';

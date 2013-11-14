@@ -3,9 +3,6 @@
 -->
 <!DOCTYPE html>
 <html>
-<head>
-<title>Item</title>
-</head>
 
 <a href='./limbo.php' style='margin-right:10px'>Home</a>
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
@@ -20,8 +17,7 @@ require( 'includes/connect_db.php' ) ;
 require( 'includes/helpers.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'GET') {
-
-	show_record($dbc, $_GET['name']) ;
+	show_item($dbc, $_GET['itemname']) ;
 }
 
 else {
