@@ -47,9 +47,22 @@ $results = mysqli_query($dbc, $query) ;
 
 function show_item($dbc, $name) {
 
-	# Create a query to get the name and price sorted by price
-	$query = 'SELECT s.name, s.description, s.create_date, s.status, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
 
+	# Create a query to get the name and price sorted by price
+	$query = 'SELECT owner FROM stuff WHERE name = "' . $name . '"';
+	# Execute the query
+	$results = mysqli_query( $dbc , $query ) ;
+	check_results($results) ;
+	$row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ;
+
+	# Create a query to get the name and price sorted by price
+	if($row['owner'] != NULL){
+		$query = 'SELECT s.name, s.description, s.create_date, s.status, s.owner, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
+	}
+	
+	else {
+		$query = 'SELECT s.name, s.description, s.create_date, s.status, s.finder, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
+	}
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
 	check_results($results) ;
@@ -87,6 +100,35 @@ function show_item($dbc, $name) {
   		# End the table
   		echo '</TABLE>';
 
+		echo '<button type="button" onclick="toggle();">More Info</button>';
+		
+		echo '<TABLE BORDER = 1 id = "hidethis" style="display:none">';
+
+  		# For each row result, generate a table row
+
+		echo '<TH> Contact Information </TH>' ;
+		
+		echo '<TR>' ;
+		echo '<TH>Name</TH>';
+		if(isset($row['owner'])){
+			echo '<TD>' . $row['owner'] . '</TD>' ;
+		}
+		else {
+			echo '<TD>' . $row['finder'] . '</TD>' ;
+		}
+		echo '</TR>' ;
+		echo '<TR>' ;
+		echo '<TH>Email</TH>';
+		echo '<TD>' . $row['email'] . '</TD>' ;
+		echo '</TR>' ;
+		echo '<TR>' ;
+		echo '<TH>Phone</TH>';
+		echo '<TD>' . $row['phone'] . '</TD>' ;
+		echo '</TR>' ;
+
+  		# End the table
+  		echo '</TABLE>';
+		
   		# Free up the results in memory
   		mysqli_free_result( $results ) ;
 	}

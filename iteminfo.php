@@ -28,4 +28,14 @@ else {
 mysqli_close( $dbc ) ;
 ?>
 
+<script>
+function toggle() {
+ if( document.getElementById("hidethis").style.display=='none' ){
+   document.getElementById("hidethis").style.display = '';
+ }else{
+   document.getElementById("hidethis").style.display = 'none';
+ }
+}
+</script>
+
 </html>
