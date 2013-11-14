@@ -259,7 +259,7 @@ function valid_description($description){
 # Inserts user inputs from Lost page into database
 function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic){
   $owner = $first_name . ' ' . $last_name ;
-  $createdate = date($date);
+  $createdate = "'" . $date . "'";
 
   $query = "SELECT id FROM locations WHERE name = " . "'" . $location . "'" ;
   
@@ -299,7 +299,7 @@ function load( $page = 'admin.php')
 
 function insert_found($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic){
   $owner = $first_name . ' ' . $last_name ;
-  $createdate = date($date);
+  $createdate = "'" . $date . "'";
 
   $query = "SELECT id FROM locations WHERE name = " . "'" . $location . "'" ;
   
