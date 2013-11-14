@@ -25,10 +25,11 @@ $results = mysqli_query($dbc, $query) ;
 
 			# For each row result, generate a table row
 		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
+			$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
 			echo '<TR>' ;
 			echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
 			echo '<TD>' . $row['status'] . '</TD>' ;
-			echo '<TD>' . $row['name'] . '</TD>';
+			echo '<TD ALIGN=left>' . $alink . '</TD>' ;
 			echo '</TR>' ;
 		}
 
@@ -44,9 +45,10 @@ $results = mysqli_query($dbc, $query) ;
 		}
 }
 
-function show_link_records($dbc) {
+function show_item($dbc, $name) {
+
 	# Create a query to get the name and price sorted by price
-	$query = 'SELECT number, lname FROM presidents ORDER BY number ASC' ;
+	$query = 'SELECT s.name, s.description, s.create_date, s.status, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = ' . $name ;
 
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
@@ -57,21 +59,28 @@ function show_link_records($dbc) {
 	{
   		# But...wait until we know the query succeed before
   		# rendering the table start.
-  		echo '<H1>Dead Presidents</H1>' ;
+  		echo '<H1>ITEM</H1>' ;
   		echo '<TABLE BORDER = 1>';
-  		echo '<TR>';
-		echo '<TH>Number</TH>';
-  		echo '<TH>Last Name</TH>';
-  		echo '</TR>';
 
   		# For each row result, generate a table row
   		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   		{
-			$alink = '<A HREF=linkypresidents.php?number=' . $row['number'] . '>' . $row['number'] . '</A>' ;
-    		echo '<TR>' ;
-			echo '<TD ALIGN=right>' . $alink . '</TD>' ;
-    		echo '<TD>' . $row['lname'] . '</TD>' ;
-    		echo '</TR>' ;
+			echo '<TR>' ;
+			echo '<TH>Date</TH>';
+			echo '<TD>' . $row['s.create_date'] . '</TD>' ;
+			echo '</TR>' ;
+			echo '<TR>' ;
+			echo '<TH>Status</TH>';
+			echo '<TD>' . $row['s.status'] . '</TD>' ;
+			echo '</TR>' ;
+			echo '<TR>' ;
+			echo '<TH>Location</TH>';
+			echo '<TD>' . $row['l.name'] . '</TD>' ;
+			echo '</TR>' ;
+			echo '<TR>' ;
+			echo '<TH>Description</TH>';
+			echo '<TD>' . $row['s.description'] . '</TD>' ;
+			echo '</TR>' ;
   		}
 
   		# End the table

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users(
 	first_name VARCHAR(20) NOT NULL,
 	last_name VARCHAR(20) NOT NULL,
 	email VARCHAR(60) NOT NULL UNIQUE,
-	pass CHAR(40) NOT NULL,
+	pass VARCHAR(60000) NOT NULL,
 	reg_date DATETIME NOT NULL,
 	PRIMARY KEY (user_id)
 );
@@ -43,9 +43,6 @@ CREATE TABLE IF NOT EXISTS stuff(
 	FOREIGN KEY(location_id)
 		REFERENCES locations(id)
 );
-
-INSERT INTO users(first_name, last_name, email, pass, reg_date)
-VALUES ('admin', 'admin', 'admin@admin.com', 'gaze11e', Now());
 
 INSERT INTO locations(create_date, update_date, name)
 VALUES
@@ -96,8 +93,13 @@ VALUES
 INSERT INTO stuff(location_id, name, description, create_date, room, owner, status)
 VALUES 
 (21, 'Android', 'it is a robot', '2013-11-04', '037', 'Ricky', 'lost'),
-(32, 'Wallet', 'cash money', '2013-10-18', 'Second Floor', 'Brian', 'lost'),
-(6, 'Ring', 'extra shiny', '2013-11-12', '207', 'Daniel', 'lost');
+(32, 'Purse', 'pretty money', '2013-10-18', 'Second Floor', 'Brian', 'lost'),
+(6, 'Necklace', 'jingles', '2013-11-12', '207', 'Daniel', 'lost');
+
+INSERT INTO users(first_name, last_name, email, pass, reg_date)
+VALUES ('first', 'test', 'admin@admin.com', PASSWORD('gaze11e'), Now());
 
 SELECT * FROM stuff;
-SELECT s.location_id, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id;
+SELECT s.location_id, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.location_id = 5;
+
+SELECT * FROM users;
