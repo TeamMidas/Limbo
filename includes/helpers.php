@@ -8,47 +8,9 @@ By: Stanley Yang, Antony Liang
 $debug = true;
 
 # Shows the records in prints
-function show_stuff($dbc) {
-$query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC' ;
-
-$results = mysqli_query($dbc, $query) ;
-
-	if( $results ){
-	  # But...wait until we know the query succeeded before
-	  # starting the table.
-		echo '<TABLE BORDER = 1>';
-		echo '<TR>';
-		echo '<TH>Date</TH>';
-		echo '<TH>Status</TH>';
-		echo '<TH>Stuff</TH>';
-		echo '</TR>';
-
-			# For each row result, generate a table row
-		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
-			$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
-			echo '<TR>' ;
-			echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
-			echo '<TD>' . $row['status'] . '</TD>' ;
-			echo '<TD ALIGN=left>' . $alink . '</TD>' ;
-			echo '</TR>' ;
-		}
-
-		# End the table
-		echo '</TABLE>';
-
-		# Free up the results in memory
-		mysqli_free_result( $results ) ;
-		}
-	else {
-			# If we get here, something has gone wrong
-			echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
-		}
-}
-
-function show_item($dbc, $name) {
-
+function show_records($dbc) {
 	# Create a query to get the name and price sorted by price
-	$query = 'SELECT s.name, s.description, s.create_date, s.status, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
+	$query = 'SELECT number, fname, lname FROM presidents ORDER BY number ASC' ;
 
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
@@ -59,30 +21,61 @@ function show_item($dbc, $name) {
 	{
   		# But...wait until we know the query succeed before
   		# rendering the table start.
+  		echo '<H1>Dead Presidents</H1>' ;
   		echo '<TABLE BORDER = 1>';
+  		echo '<TR>';
+		echo '<TH>Number</TH>';
+  		echo '<TH>First Name</TH>';
+  		echo '<TH>Last Name</TH>';
+  		echo '</TR>';
 
   		# For each row result, generate a table row
-  		$row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ;
+  		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+  		{
+    		echo '<TR>' ;
+			echo '<TD>' . $row['number'] . '</TD>' ;
+    		echo '<TD>' . $row['fname'] . '</TD>' ;
+    		echo '<TD>' . $row['lname'] . '</TD>' ;
+    		echo '</TR>' ;
+  		}
 
-		echo '<h1>' . $row['name'] . '</h1>' ;
-		
-		echo '<TR>' ;
-		echo '<TH>Date</TH>';
-		echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
-		echo '</TR>' ;
-		echo '<TR>' ;
-		echo '<TH>Status</TH>';
-		echo '<TD>' . $row['status'] . '</TD>' ;
-		echo '</TR>' ;
-		echo '<TR>' ;
-		echo '<TH>Location</TH>';
-		echo '<TD>' . $row['location'] . '</TD>' ;
-		echo '</TR>' ;
-		echo '<TR>' ;
-		echo '<TH>Description</TH>';
-		echo '<TD>' . $row['description'] . '</TD>' ;
-		echo '</TR>' ;
- 
+  		# End the table
+  		echo '</TABLE>';
+
+  		# Free up the results in memory
+  		mysqli_free_result( $results ) ;
+	}
+}
+
+function show_link_records($dbc) {
+	# Create a query to get the name and price sorted by price
+	$query = 'SELECT number, lname FROM presidents ORDER BY number ASC' ;
+
+	# Execute the query
+	$results = mysqli_query( $dbc , $query ) ;
+	check_results($results) ;
+
+	# Show results
+	if( $results )
+	{
+  		# But...wait until we know the query succeed before
+  		# rendering the table start.
+  		echo '<H1>Dead Presidents</H1>' ;
+  		echo '<TABLE BORDER = 1>';
+  		echo '<TR>';
+		echo '<TH>Number</TH>';
+  		echo '<TH>Last Name</TH>';
+  		echo '</TR>';
+
+  		# For each row result, generate a table row
+  		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+  		{
+			$alink = '<A HREF=linkypresidents.php?number=' . $row['number'] . '>' . $row['number'] . '</A>' ;
+    		echo '<TR>' ;
+			echo '<TD ALIGN=right>' . $alink . '</TD>' ;
+    		echo '<TD>' . $row['lname'] . '</TD>' ;
+    		echo '</TR>' ;
+  		}
 
   		# End the table
   		echo '</TABLE>';
