@@ -29,11 +29,11 @@ mysqli_close( $dbc ) ;
 ?>
 
 <script>
-function toggle() {
- if( document.getElementById("hidethis").style.display=='none' ){
-   document.getElementById("hidethis").style.display = '';
+function toggleInfo() {
+ if( document.getElementById("info").style.display=='none' ){
+   document.getElementById("info").style.display = '';
  }else{
-   document.getElementById("hidethis").style.display = 'none';
+   document.getElementById("info").style.display = 'none';
  }
 }
 </script>

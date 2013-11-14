@@ -100,9 +100,9 @@ function show_item($dbc, $name) {
   		# End the table
   		echo '</TABLE>';
 
-		echo '<button type="button" onclick="toggle();">More Info</button>';
+		echo '<button type="button" onclick="toggleInfo();">More Info</button>';
 		
-		echo '<TABLE BORDER = 1 id = "hidethis" style="display:none">';
+		echo '<TABLE BORDER = 1 id = "info" style="display:none">';
 
   		# For each row result, generate a table row
 
