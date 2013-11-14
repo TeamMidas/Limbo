@@ -38,7 +38,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 <table>
 <tr>
 <td>Username:</td><td><input type="text" name="email"></td>
-<td>Password:</td><td><input type="text" name="pass"></td>
+<td>Password:</td><td><input type="password" name="pass"></td>
 </tr>
 </table>
 <p><input type="submit" ></p>

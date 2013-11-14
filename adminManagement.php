@@ -96,8 +96,8 @@ else
 <tr><td class = "none">Email:</td><td><input type="text" name="email"></td></tr>
 <tr><td class = "none">First Name:</td><td><input type="text" name="fname"></td></tr>
 <tr><td class = "none">Last Name:</td><td><input type="text" name="lname"></td></tr>
-<tr><td class = "none">Password:</td><td><input type="text" name="pass"></td></tr>
-<tr><td class = "none">Confirm New Password:</td><td><input type="text" name="confirmpass"></td></tr>
+<tr><td class = "none">Password:</td><td><input type="password" name="pass"></td></tr>
+<tr><td class = "none">Confirm New Password:</td><td><input type="password" name="confirmpass"></td></tr>
 </table>
 <p><input type="submit" ></p>
 </form>
