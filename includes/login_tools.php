@@ -8,23 +8,6 @@ Antony Liang
 # Includes these helper functions
 require( 'includes/helpers.php' ) ;
 
-# Loads a specified or default URL.
-function load( $page = 'admin.php')
-{
-  # Begin URL with protocol, domain, and current directory.
-  $url = 'http://' . $_SERVER[ 'HTTP_HOST' ] . dirname( $_SERVER[ 'PHP_SELF' ] ) ;
-
-  $url = rtrim( $url, '/\\' ) ;
-  $url .= '/' . $page ;
-  
-  # Execute redirect then quit.
-  session_start();
-
-  header( "Location: $url" ) ;
-
-  exit() ;
-}
-
 # Validates the print name.
 # Returns -1 if validate fails, and >= 0 if it succeeds
 # which is the primary key id.

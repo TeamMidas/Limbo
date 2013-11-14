@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS stuff(
 	room TEXT,
 	owner TEXT,
 	email TEXT,
-	phone INT,
+	phone TEXT,
 	finder TEXT,
 	status SET('found', 'lost', 'claimed') NOT NULL, -- Did you mean a check constraint here instead of SET?
 	PRIMARY KEY(id),
@@ -84,17 +84,17 @@ VALUES
 (Now(), Now(), 'Lower West Cedar Townhouses'),
 (Now(), Now(), 'Upper West Cedar Townhouses');
 
-INSERT INTO stuff(location_id, name, description, create_date, room, finder, status)
+INSERT INTO stuff(location_id, name, description, create_date, room, finder, email, phone, status)
 VALUES 
-(15, 'iPhone', 'it is shiny', '2013-10-21', '2020', 'Richard', 'found'),
-(19, 'Wallet', 'cash money', '2013-10-18', 'First Floor', 'Henry', 'found'),
-(5, 'Ring', 'extra shiny', '2013-11-12', '207', 'Chris', 'found');
+(15, 'iPhone', 'it is shiny', '2013-10-21', '2020', 'Richard', 'email@email.com', '2345678999', 'found'),
+(19, 'Wallet', 'cash money', '2013-10-18', 'First Floor', 'Henry', 'email@email.com', '2345678999', 'found'),
+(5, 'Ring', 'extra shiny', '2013-11-12', '207', 'Chris', 'email@email.com', '2345678999', 'found');
 
-INSERT INTO stuff(location_id, name, description, create_date, room, owner, status)
+INSERT INTO stuff(location_id, name, description, create_date, room, owner, email, phone, status)
 VALUES 
-(21, 'Android', 'it is a robot', '2013-11-04', '037', 'Ricky', 'lost'),
-(32, 'Purse', 'pretty money', '2013-10-18', 'Second Floor', 'Brian', 'lost'),
-(6, 'Necklace', 'jingles', '2013-11-12', '207', 'Daniel', 'lost');
+(21, 'Android', 'it is a robot', '2013-11-04', '037', 'Ricky', 'email@email.com', '2345678999', 'lost'),
+(32, 'Purse', 'pretty money', '2013-10-18', 'Second Floor', 'Brian', 'email@email.com', '2345678999', 'lost'),
+(6, 'Necklace', 'jingles', '2013-11-12', '207', 'Daniel', 'email@email.com', '2345678999', 'lost');
 
 INSERT INTO users(first_name, last_name, email, pass, reg_date)
 VALUES ('first', 'test', 'admin@admin.com', PASSWORD('gaze11e'), Now());

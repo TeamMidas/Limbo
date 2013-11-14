@@ -107,6 +107,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	#submit
 	if(!$error){
 		$input = insert_found($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic) ;
+		load("limbo.php");
 	}
 }
 
@@ -140,10 +141,10 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 		<td>Item Name:</td><td><input type="text" name="item_name" value="<?php if (isset($_POST['item_name'])) echo $_POST['item_name']; ?>" ></td>
 	</tr>
 	<tr>
-		<td>Date Lost:</td><td><input type="text" name="datepicker" id="datepicker" /></td>
+		<td>Date Found:</td><td><input type="text" name="datepicker" id="datepicker" /></td>
 	</tr>
 	<tr>
-		<td>Location Lost:</td><td><?php echo $menu ?></td>
+		<td>Location Found:</td><td><?php echo $menu ?></td>
 	</tr>
 	<tr>
 		<td>Description:</td><td><input type="text" name="description" value="<?php if (isset($_POST['description'])) echo $_POST['description']; ?>" ></td>

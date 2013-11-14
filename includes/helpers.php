@@ -271,7 +271,7 @@ function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item
     $location_id = $row['id'];
   }
 
-  $query = 'INSERT INTO stuff(location_id, name, description, create_date, owner, email, phone) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ')' ;
+  $query = 'INSERT INTO stuff(location_id, name, description, create_date, owner, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "lost")' ;
  
   show_query($query);
 
@@ -279,6 +279,22 @@ function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item
   check_results($results) ;
 
   return $results ;
+}
+
+function load( $page = 'admin.php')
+{
+  # Begin URL with protocol, domain, and current directory.
+  $url = 'http://' . $_SERVER[ 'HTTP_HOST' ] . dirname( $_SERVER[ 'PHP_SELF' ] ) ;
+
+  $url = rtrim( $url, '/\\' ) ;
+  $url .= '/' . $page ;
+  
+  # Execute redirect then quit.
+  session_start();
+
+  header( "Location: $url" ) ;
+
+  exit() ;
 }
 
 function insert_found($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic){
@@ -295,7 +311,7 @@ function insert_found($dbc, $first_name, $last_name, $phone_number, $email, $ite
     $location_id = $row['id'];
   }
 
-  $query = 'INSERT INTO stuff(location_id, name, description, create_date, finder, email, phone) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ')' ;
+  $query = 'INSERT INTO stuff(location_id, name, description, create_date, finder, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "found")' ;
  
   show_query($query);
 
