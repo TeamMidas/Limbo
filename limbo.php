@@ -22,43 +22,11 @@
 <?php
 require( 'includes/connect_db.php' ) ;
 
-$query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC' ;
+require( 'includes/helpers.php' ) ;
 
-$results = mysqli_query($dbc, $query) ;
+show_stuff($dbc) ;
 
-if( $results )
-{
-  # But...wait until we know the query succeeded before
-  # starting the table.
-  echo '<TABLE BORDER = 1>';
-  echo '<TR>';
-  echo '<TH>Date</TH>';
-  echo '<TH>Status</TH>';
-  echo '<TH>Stuff</TH>';
-  echo '</TR>';
-
-  # For each row result, generate a table row
-  while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
-  {
-    echo '<TR>' ;
-    echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
-    echo '<TD>' . $row['status'] . '</TD>' ;
-    echo '<TD>' . $row['name'] . '</TD>';
-	echo '</TR>' ;
-  }
-
-  # End the table
-  echo '</TABLE>';
-
-  # Free up the results in memory
-  mysqli_free_result( $results ) ;
-}
-else
-{
-  # If we get here, something has gone wrong
-  echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
-}
-
+mysqli_close( $dbc ) ;
 ?>
 </body>
 </html>
