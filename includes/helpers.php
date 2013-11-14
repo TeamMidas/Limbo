@@ -130,6 +130,13 @@ function show_item($dbc, $name) {
 	}
 }
 
+function show_query($query) {
+  global $debug;
+
+  if($debug)
+    echo "<p>Query = $query</p>" ;
+}
+
 # Checks the query results as a debugging aid
 function check_results($results) {
   global $dbc;
