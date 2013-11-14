@@ -5,9 +5,10 @@
 </head>
 <body>
 
+<a href='./limbo.php' style='margin-right:10px'>Home</a>
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
-<a href='./admin.php'>Admins</a>
+<a href='./adminManagement.php'>Admins Management</a>
 <a href='./accountChanges.php'>Change Account Info</a>
 <h1>Welcome Admin!</h1>
 <h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>
