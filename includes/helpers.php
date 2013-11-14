@@ -256,33 +256,8 @@ function valid_description($description){
   else
     return true;
 }
-# Inserts user inputs from Lost page into database
-function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic){
-  $owner = $first_name . ' ' . $last_name ;
-  $createdate = "'" . $date . "'";
 
-  $query = "SELECT id FROM locations WHERE name = " . "'" . $location . "'" ;
-  
-  $result = mysqli_query($dbc,$query) ;
-  $location_id = -1;
-
-  while($row = mysqli_fetch_array($result)){
-    #echo $row['id'];
-    $location_id = $row['id'];
-  }
-
-  $query = 'INSERT INTO stuff(location_id, name, description, create_date, owner, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "lost")' ;
- 
-  show_query($query);
-
-  $results = mysqli_query($dbc,$query) ;
-  check_results($results) ;
-
-  return $results ;
-}
-
-function load( $page = 'admin.php')
-{
+function load( $page = 'admin.php'){
   # Begin URL with protocol, domain, and current directory.
   $url = 'http://' . $_SERVER[ 'HTTP_HOST' ] . dirname( $_SERVER[ 'PHP_SELF' ] ) ;
 
@@ -297,6 +272,29 @@ function load( $page = 'admin.php')
   exit() ;
 }
 
+# Inserts user inputs from Lost page into database
+function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic){
+  $owner = $first_name . ' ' . $last_name ;
+  $createdate = "'" . $date . "'";
+
+  $query = "SELECT id FROM locations WHERE name = " . "'" . $location . "'" ;
+  
+  $result = mysqli_query($dbc,$query) ;
+  $location_id = 1;
+
+  $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+  $location_id = $row['id'];
+
+  $query = 'INSERT INTO stuff(location_id, name, description, create_date, owner, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "lost")' ;
+ 
+  show_query($query);
+
+  $results = mysqli_query($dbc,$query) ;
+  check_results($results) ;
+
+  return $results ;
+}
+
 function insert_found($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic){
   $owner = $first_name . ' ' . $last_name ;
   $createdate = "'" . $date . "'";
@@ -304,12 +302,10 @@ function insert_found($dbc, $first_name, $last_name, $phone_number, $email, $ite
   $query = "SELECT id FROM locations WHERE name = " . "'" . $location . "'" ;
   
   $result = mysqli_query($dbc,$query) ;
-  $location_id = -1;
+  $location_id = 1;
 
-  while($row = mysqli_fetch_array($result)){
-    #echo $row['id'];
-    $location_id = $row['id'];
-  }
+  $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+  $location_id = $row['id'];
 
   $query = 'INSERT INTO stuff(location_id, name, description, create_date, finder, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "found")' ;
  
