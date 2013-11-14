@@ -220,8 +220,14 @@ function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item
   $createdate = date($date);
 
   $query = "SELECT id FROM locations WHERE name = " . "'" . $location . "'" ;
+  
+  $result = mysqli_query($dbc,$query) ;
+  $location_id = -1;
 
-  $location_id = 1;
+  while($row = mysqli_fetch_array($result)){
+    #echo $row['id'];
+    $location_id = $row['id'];
+  }
 
   $query = 'INSERT INTO stuff(location_id, name, description, create_date, owner, email, phone) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ')' ;
  
