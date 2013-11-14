@@ -239,5 +239,28 @@ function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item
   return $results ;
 }
 
+function insert_found($dbc, $first_name, $last_name, $phone_number, $email, $item_name, $date, $location, $description, $pic){
+  $owner = $first_name . ' ' . $last_name ;
+  $createdate = date($date);
+
+  $query = "SELECT id FROM locations WHERE name = " . "'" . $location . "'" ;
+  
+  $result = mysqli_query($dbc,$query) ;
+  $location_id = -1;
+
+  while($row = mysqli_fetch_array($result)){
+    #echo $row['id'];
+    $location_id = $row['id'];
+  }
+
+  $query = 'INSERT INTO stuff(location_id, name, description, create_date, finder, email, phone) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ')' ;
+ 
+  show_query($query);
+
+  $results = mysqli_query($dbc,$query) ;
+  check_results($results) ;
+
+  return $results ;
+}
 
 ?>
