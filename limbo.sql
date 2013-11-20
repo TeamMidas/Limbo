@@ -38,10 +38,21 @@ CREATE TABLE IF NOT EXISTS stuff(
 	email TEXT,
 	phone TEXT,
 	finder TEXT,
-	status SET('found', 'lost', 'claimed') NOT NULL, -- Did you mean a check constraint here instead of SET?
+	status SET('found', 'lost', 'claimed') NOT NULL,
 	PRIMARY KEY(id),
 	FOREIGN KEY(location_id)
 		REFERENCES locations(id)
+);
+
+CREATE TABLE IF NOT EXISTS messages(
+	id INT AUTO_INCREMENT,
+	name TEXT NOT NULL,
+	create_date DATETIME NOT NULL,
+	email TEXT NOT NULL,
+	subject TEXT NOT NULL,
+	item_id TEXT,
+	message TEXT,
+	PRIMARY KEY(id)
 );
 
 INSERT INTO locations(create_date, update_date, name)
@@ -99,7 +110,13 @@ VALUES
 INSERT INTO users(first_name, last_name, email, pass, reg_date)
 VALUES ('first', 'test', 'admin@admin.com', PASSWORD('gaze11e'), Now());
 
+INSERT INTO messages(name, create_date, email, subject, item_id, message)
+VALUES
+('Mr.Test', Now(), 'test@test.com', 'testmessage', '5', 'TEST MESSAGE');
+
 SELECT * FROM stuff;
 SELECT s.location_id, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.location_id = 5;
 
 SELECT * FROM users;
+
+SELECT * FROM messages;
