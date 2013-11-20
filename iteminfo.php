@@ -7,7 +7,8 @@
 <a href='./limbo.php' style='margin-right:10px'>Home</a>
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
-<a href='./admin.php'>Admins</a>
+<a href='./admin.php' style='margin-right:10px'>Admins</a>
+<a href='./contactAdmin.php'>Contact Admins</a>
 
 <?php
 # Connect to MySQL server and the database

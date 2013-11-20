@@ -8,7 +8,8 @@
 <a href='./limbo.php' style='margin-right:10px'>Home</a>
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
-<a href='./admin.php'>Admins</a>
+<a href='./admin.php' style='margin-right:10px'>Admins</a>
+<a href='./contactAdmin.php'>Contact Admins</a>
 
 <h1>Welcome to Limbo!</h1>
 <h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>
