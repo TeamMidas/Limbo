@@ -5,10 +5,13 @@
 </head>
 <body>
 
-<a href='./limbo.php' style='margin-right:10px'>Home</a>
+<a href='./adminHome.php' style='margin-right:10px'>Home</a>
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
-<a href='./accountChanges.php'>Change Account Info</a>
+<a href='./adminMessages.php' style='margin-right:10px'>Admins Messages</a>
+<a href='./accountChanges.php' style='margin-right:10px'>Change Account Info</a>
+<a href='./limbo.php' >Log Out</a>
+
 <h1>Admin Management</h1>
 
 <?php

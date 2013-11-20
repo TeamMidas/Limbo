@@ -26,10 +26,58 @@ $results = mysqli_query($dbc, $query) ;
 		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
 			$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
 			echo '<TR>' ;
-			echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
+			echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
 			echo '<TD>' . $row['status'] . '</TD>' ;
 			echo '<TD ALIGN=left>' . $alink . '</TD>' ;
 			echo '</TR>' ;
+		}
+
+		# End the table
+		echo '</TABLE>';
+
+		# Free up the results in memory
+		mysqli_free_result( $results ) ;
+		}
+	else {
+			# If we get here, something has gone wrong
+			echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+		}
+}
+
+function show_messages($dbc) {
+$query = 'SELECT id, name, create_date, email, subject, item_id, message FROM messages ORDER BY create_date DESC' ;
+
+$results = mysqli_query($dbc, $query) ;
+
+	if( $results ){
+	  # starting the table.
+		echo '<TABLE BORDER = 1>';
+		echo '<TR>';
+		echo '<TH class="none"></TH>' ;
+		echo '<TH>Date</TH>';
+		echo '<TH>From</TH>';
+		echo '<TH>Subject</TH>';
+		echo '</TR>';
+
+			# For each row result, generate a table row
+		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
+			echo '<TR onclick="toggleInfo(' . $row['id'] .  ')");" >' ;
+			echo '<TD class = "none"> <form action="adminMessages.php" method="POST"> <input type="hidden" name="remove" value = "' . $row['id'] . '"> <input type="submit" value = "" class = "redButton"> </form> </TD>' ;
+			echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
+			echo '<TD>' . $row['name'] . '</TD>' ;
+			echo '<TD>' . $row['subject'] . '</TD>' ;
+			echo '</TR>' ;
+			
+			echo '<TR id=' . $row['id'] . ' style="display:none">' ;
+			echo '<td BORDER: solid 0px black;> </td>' ;
+			if( !empty($row['item_id'])){
+				echo '<td colspan="3"> ' .$row['message']  . '<br> Regarding item '. $row['item_id'] . '<br> <form method="post" action="mailto:' . $row['email'] . '" > <input type="submit" value="Reply" /> </form> </td>';
+			}
+			else{
+				echo '<td colspan="3"> ' .$row['message']  . '<br> <form method="post" action="mailto:' . $row['email'] . '" > <input type="submit" value="Reply" /> </form> </td>';
+			}
+			echo '</TR>' ;
+
 		}
 
 		# End the table

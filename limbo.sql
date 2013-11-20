@@ -112,7 +112,7 @@ VALUES ('first', 'test', 'admin@admin.com', PASSWORD('gaze11e'), Now());
 
 INSERT INTO messages(name, create_date, email, subject, item_id, message)
 VALUES
-('Mr.Test', Now(), 'test@test.com', 'testmessage', '5', 'TEST MESSAGE');
+('Mr.Test', Now(), 'test@test.com', 'testmessage', 'shoe', 'TEST MESSAGE');
 
 SELECT * FROM stuff;
 SELECT s.location_id, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.location_id = 5;

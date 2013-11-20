@@ -5,11 +5,15 @@
 </head>
 <body>
 
-<a href='./limbo.php' style='margin-right:10px'>Home</a>
+<a href='./adminHome.php' style='margin-right:10px'>Home</a>
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
-<a href='./adminManagement.php'>Admins Management</a>
-<a href='./accountChanges.php'>Change Account Info</a>
+<a href='./adminManagement.php' style='margin-right:10px'>Admins Management</a>
+<a href='./adminMessages.php' style='margin-right:10px'>Admins Messages</a>
+<a href='./accountChanges.php' style='margin-right:10px'>Change Account Info</a>
+<a href='./limbo.php' >Log Out</a>
+
+
 <h1>Welcome Admin!</h1>
 <h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>
 <h3 style='display:inline'>Reported in last </h3>
@@ -62,13 +66,14 @@ if( $results )
   # For each row result, generate a table row
   while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   {
+	$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
 	$id = $row['id'] ;
     echo '<TR>' ;
 	echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="remove" value = "' . $id . '"> <input type="submit" value = "" class = "redButton"> </form> </TD>' ;
-    echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
+    echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
     echo '<TD>' . $row['status'] . '</TD>' ;
-    echo '<TD>' . $row['name'] . '</TD>';
-	echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="claimed" value = "' . $id . '"> <input type="submit" value = "" class = "greenCheck"> </form> </TD>' ;
+    echo '<TD ALIGN=left>' . $alink . '</TD>' ;
+	echo '<TD ALIGN=left class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="claimed" value = "' . $id . '"> <input type="submit" value = "" class = "greenCheck"> </form> </TD>' ;
 	echo '</TR>' ;
   }
 

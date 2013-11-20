@@ -35,10 +35,13 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 }
 ?>
 
-<a href='./limbo.php' style='margin-right:10px'>Home</a>
+<a href='./adminHome.php' style='margin-right:10px'>Home</a>
 <a href='./lost.php' style='margin-right:10px'>Lost Something</a>
 <a href='./found.php' style='margin-right:10px'>Found Something</a>
-<a href='./adminManagement.php'>Admins Management</a>
+<a href='./adminManagement.php' style='margin-right:10px'>Admins Management</a>
+<a href='./adminMessages.php' style='margin-right:10px'>Admins Messages</a>
+<a href='./limbo.php' >Log Out</a>
+
 <h1>Change Account Info</h1>
 
 <form action="accountChanges.php" method="POST">

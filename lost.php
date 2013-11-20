@@ -119,8 +119,8 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
 <form action="lost.php" method="POST">
 
-<table>
-	<caption>Contact Information</caption>
+<table BORDER=1>
+	<caption><b>Contact Information</b></caption>
 	<tr>
 		<td>First Name:</td><td><input type="text" name="first_name" value="<?php if (isset($_POST['first_name'])) echo $_POST['first_name']; ?>" ></td>
 	</tr>
@@ -137,8 +137,8 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
 <br>
 
-<table>
-	<caption style='width:262px'>Item Information</caption>
+<table BORDER=1>
+	<caption style='width:262px'><b>Item Information</b></caption>
 	<tr>
 		<td>Item Name:</td><td><input type="text" name="item_name" value="<?php if (isset($_POST['item_name'])) echo $_POST['item_name']; ?>" ></td>
 	</tr>
