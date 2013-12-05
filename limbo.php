@@ -21,9 +21,9 @@
 </select>
 
 <?php
-require( 'includes/connect_db.php' ) ;
-
 require( 'includes/helpers.php' ) ;
+
+$dbc = init('limbo_db');
 
 show_stuff($dbc) ;
 

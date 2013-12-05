@@ -311,4 +311,47 @@ function insert_found($dbc, $first_name, $last_name, $phone_number, $email, $ite
   return $results ;
 }
 
+function init($dbname){
+
+    # Connect to the database, if we fail assume the DB doesnt exist
+    $dbc = @mysqli_connect ( 'localhost', 'root', '', $dbname );
+
+    if($dbc) {
+        mysqli_set_charset( $dbc, 'utf8' ) ;
+        return $dbc;
+    }
+
+    # Create the database
+    $dbc = @mysqli_connect ( 'localhost', 'root', '', '' );
+/*
+    $query = 'DROP DATABASE IF EXISTS $dbname';
+    show_query( $query );
+    $results = mysqli_query($dbc, $query);
+    check_results($result);
+*/
+    $query = 'CREATE DATABASE '. $dbname;
+    echo '<p> Welcome to Limbo for the first time! </p>' ;
+
+    $results = mysqli_query($dbc, $query);
+    check_results($results);
+
+    # Close connection since we dont need it
+    mysqli_close( $dbc );
+
+    # Connect to the (newly created) database
+    $dbc = @mysqli_connect ( 'localhost', 'root', '', $dbname )
+        OR die ( mysqli_connect_error() ) ;
+
+    # Set encoding to match PHP script encoding.
+    mysqli_set_charset( $dbc, 'utf8' ) ;
+
+	$sql= file_get_contents('limbo.sql');
+	$results = mysqli_multi_query($dbc, $sql);
+	mysqli_close( $dbc );
+	
+	sleep(1);
+	
+    return init($dbname);
+}
+
 ?>

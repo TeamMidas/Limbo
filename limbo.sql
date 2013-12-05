@@ -3,10 +3,10 @@
 -- Version 1
 
 -- this line exists for ease of testing
-DROP DATABASE IF EXISTS limbo_db;
+--DROP DATABASE IF EXISTS limbo_db;
 
-CREATE DATABASE IF NOT EXISTS limbo_db;
-USE limbo_db;
+--CREATE DATABASE IF NOT EXISTS limbo_db;
+--USE limbo_db;
 
 CREATE TABLE IF NOT EXISTS users(
 	user_id INT UNSIGNED AUTO_INCREMENT,
