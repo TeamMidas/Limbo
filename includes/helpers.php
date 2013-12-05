@@ -250,6 +250,13 @@ function valid_description($description){
   else
     return true;
 }
+function valid_location($location){
+	if($location === "Select a location"){
+		return false;
+	}
+	else
+		return true;
+}
 
 function load( $page = 'admin.php'){
   # Begin URL with protocol, domain, and current directory.

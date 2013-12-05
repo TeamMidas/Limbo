@@ -39,7 +39,7 @@ $query = 'SELECT name FROM locations ORDER BY name ASC' ;
 $results = mysqli_query($dbc, $query) ;
 
 #populate locations dropdown menu
-$options = '';
+$options = '<option>Select a location</option>';
 
 while($row = mysqli_fetch_array($results, MYSQLI_ASSOC))
 {
@@ -100,7 +100,12 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 		echo '<p style="color:red">Please choose a date</p>';
 		$error = true;
 	}
-	#time and location will always be valid since they are enumerated
+	if(!valid_location($location)){
+		#throw an error
+		echo '<p style="color:red">Please select a location</p>';
+		$error = true;
+	}
+	#time will always be valid since they it is enumerated
 	if(!valid_description($description)){
 		#throw an error
 		echo '<p style="color:red">Please provide a description</p>';
