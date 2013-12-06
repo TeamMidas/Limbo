@@ -366,17 +366,13 @@ function init($dbname){
         mysqli_set_charset( $dbc, 'utf8' ) ;
         return $dbc;
     }
-
-    # Create the database
-    $dbc = @mysqli_connect ( 'localhost', 'root', '', '' );
-/*
-    $query = 'DROP DATABASE IF EXISTS $dbname';
-    show_query( $query );
-    $results = mysqli_query($dbc, $query);
-    check_results($result);
-*/
-    $query = 'CREATE DATABASE '. $dbname;
-    echo '<p> Welcome to Limbo for the first time! </p>' ;
+	
+	$dbc = @mysqli_connect ( 'localhost', 'root', '', '' );
+	
+	echo '<p> Welcome to Limbo for the first time! </p>' ;
+	
+	$query = 'CREATE DATABASE limbo_db';
+    #show_query( $query );
 
     $results = mysqli_query($dbc, $query);
     check_results($results);
@@ -390,13 +386,13 @@ function init($dbname){
 
     # Set encoding to match PHP script encoding.
     mysqli_set_charset( $dbc, 'utf8' ) ;
-
+	
 	$sql= file_get_contents('limbo.sql');
 	$results = mysqli_multi_query($dbc, $sql);
 	mysqli_close( $dbc );
 	
 	sleep(1);
-	
+
     return init($dbname);
 }
 

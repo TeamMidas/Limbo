@@ -1,12 +1,11 @@
 -- Assignment 2
 -- Authors: Stanley Yang, Antony Liang
--- Version 1
+-- Main Source File
 
 -- this line exists for ease of testing
---DROP DATABASE IF EXISTS limbo_db;
-
---CREATE DATABASE IF NOT EXISTS limbo_db;
---USE limbo_db;
+-- DROP DATABASE IF EXISTS limbo_db;
+-- CREATE DATABASE limbo_db;
+-- USE limbo_db;
 
 CREATE TABLE IF NOT EXISTS users(
 	user_id INT UNSIGNED AUTO_INCREMENT,
@@ -97,15 +96,15 @@ VALUES
 
 INSERT INTO stuff(location_id, name, description, create_date, room, finder, email, phone, status)
 VALUES 
-(15, 'iPhone', 'it is shiny', '2013-10-21', '2020', 'Richard', 'email@email.com', '2345678999', 'found'),
-(19, 'Wallet', 'cash money', '2013-10-18', 'First Floor', 'Henry', 'email@email.com', '2345678999', 'found'),
-(5, 'Ring', 'extra shiny', '2013-11-12', '207', 'Chris', 'email@email.com', '2345678999', 'found');
+(15, 'iPhone', 'it is shiny', NOW(), '2020', 'Richard', 'email@email.com', '2345678999', 'found'),
+(19, 'Wallet', 'cash money', NOW() - INTERVAL 1 MONTH, 'First Floor', 'Henry', 'email@email.com', '2345678999', 'found'),
+(5, 'Ring', 'extra shiny', NOW() - INTERVAL 3 MONTH, '207', 'Chris', 'email@email.com', '2345678999', 'found');
 
 INSERT INTO stuff(location_id, name, description, create_date, room, owner, email, phone, status)
 VALUES 
-(21, 'Android', 'it is a robot', '2013-11-04', '037', 'Ricky', 'email@email.com', '2345678999', 'lost'),
-(32, 'Purse', 'pretty money', '2013-10-18', 'Second Floor', 'Brian', 'email@email.com', '2345678999', 'lost'),
-(6, 'Necklace', 'jingles', '2013-11-12', '207', 'Daniel', 'email@email.com', '2345678999', 'lost');
+(21, 'Android', 'it is a robot', NOW(), '037', 'Ricky', 'email@email.com', '2345678999', 'lost'),
+(32, 'Purse', 'pretty money', NOW() - INTERVAL 1 MONTH, 'Second Floor', 'Brian', 'email@email.com', '2345678999', 'lost'),
+(6, 'Necklace', 'jingles', NOW() - INTERVAL 3 MONTH, '207', 'Daniel', 'email@email.com', '2345678999', 'lost');
 
 INSERT INTO users(first_name, last_name, email, pass, reg_date)
 VALUES ('first', 'test', 'admin@admin.com', PASSWORD('gaze11e'), Now());
@@ -113,10 +112,3 @@ VALUES ('first', 'test', 'admin@admin.com', PASSWORD('gaze11e'), Now());
 INSERT INTO messages(name, create_date, email, subject, item_id, message)
 VALUES
 ('Mr.Test', Now(), 'test@test.com', 'testmessage', 'shoe', 'TEST MESSAGE');
-
-SELECT * FROM stuff;
-SELECT s.location_id, l.name FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.location_id = 5;
-
-SELECT * FROM users;
-
-SELECT * FROM messages;
