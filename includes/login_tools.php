@@ -20,7 +20,7 @@ function validate($email = '', $pass = '')
 
     # Make the query
     $query = "SELECT email, pass FROM users WHERE email='" . $email . "' AND pass= PASSWORD('" . $pass . "')" ;
-    show_query($query) ;
+    #show_query($query) ;
 
     # Execute the query
     $results = mysqli_query( $dbc, $query ) ;

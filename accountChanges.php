@@ -6,6 +6,16 @@ By: Stanley Yang, Antony Liang
 
 <!DOCTYPE html>
 <html>
+
+<a href='./adminHome.php' style='margin-right:10px'>Home</a>
+<a href='./lost.php' style='margin-right:10px'>Lost Something</a>
+<a href='./found.php' style='margin-right:10px'>Found Something</a>
+<a href='./adminManagement.php' style='margin-right:10px'>Admins Management</a>
+<a href='./adminMessages.php' style='margin-right:10px'>Admins Messages</a>
+<a href='./limbo.php' >Log Out</a>
+
+<h1>Change Account Info</h1>
+
 <?php
 # Connect to MySQL server and the database
 require( 'includes/connect_db.php' ) ;
@@ -31,25 +41,16 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 		}
 	}
     else
-	  echo '<P style=color:red>Incorrect Password</P>' ;
+	  echo '<P style=color:red>Incorrect Email or Incorrect Password</P>' ;
 }
 ?>
-
-<a href='./adminHome.php' style='margin-right:10px'>Home</a>
-<a href='./lost.php' style='margin-right:10px'>Lost Something</a>
-<a href='./found.php' style='margin-right:10px'>Found Something</a>
-<a href='./adminManagement.php' style='margin-right:10px'>Admins Management</a>
-<a href='./adminMessages.php' style='margin-right:10px'>Admins Messages</a>
-<a href='./limbo.php' >Log Out</a>
-
-<h1>Change Account Info</h1>
 
 <form action="accountChanges.php" method="POST">
 <table class = "list">
 <tr><td class = "none">Email:</td><td><input type="text" name="email"></td></tr>
-<tr><td class = "none">Current Password:</td><td><input type="text" name="oldpass"></td></tr>
-<tr><td class = "none">New Password:</td><td><input type="text" name="newpass"></td></tr>
-<tr><td class = "none">Confirm New Password:</td><td><input type="text" name="confirmpass"></td></tr>
+<tr><td class = "none">Current Password:</td><td><input type="password" name="oldpass"></td></tr>
+<tr><td class = "none">New Password:</td><td><input type="password" name="newpass"></td></tr>
+<tr><td class = "none">Confirm New Password:</td><td><input type="password" name="confirmpass"></td></tr>
 </table>
 <p><input type="submit" ></p>
 </form>
