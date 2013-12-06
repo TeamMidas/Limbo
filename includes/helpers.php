@@ -396,7 +396,7 @@ function init($dbname){
 
 function search_results($dbc, $name) {
 
-	$query = 'SELECT s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%" ORDER BY s.create_date DESC' ;
+	$query = 'SELECT s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.status = "found" AND (s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%") ORDER BY s.create_date DESC' ;
 
 	$results = mysqli_query($dbc, $query) ;
 
