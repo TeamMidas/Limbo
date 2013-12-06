@@ -20,8 +20,8 @@ require( 'includes/connect_db.php' ) ;
 # Includes these helper functions
 require( 'includes/helpers.php' ) ;
 
-if ($_SERVER[ 'REQUEST_METHOD' ] == 'GET' && isset($_GET['itemname'])) {
-	show_item($dbc, $_GET['itemname']) ;
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'GET' && isset($_GET['itemid'])) {
+	show_item($dbc, $_GET['itemid']) ;
 }
 
 else {

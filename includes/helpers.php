@@ -9,7 +9,7 @@ $debug = true;
 
 #home page table generation
 function show_stuff($dbc) {
-	$query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC' ;
+	$query = 'SELECT id, create_date, status, name FROM stuff ORDER BY create_date DESC' ;
 
 	$results = mysqli_query($dbc, $query) ;
 
@@ -55,7 +55,7 @@ function show_stuff($dbc) {
 
 			if($itemTime >= $targetTime){
 
-				$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
+				$alink = '<A HREF=iteminfo.php?itemid=' . $row['id'] . '>' . $row['name'] . '</A>' ;
 				echo '<TR>' ;
 				echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
 				echo '<TD>' . $row['status'] . '</TD>' ;
@@ -124,24 +124,24 @@ function show_messages($dbc) {
 	}
 }
 
-function show_item($dbc, $name) {
+function show_item($dbc, $id) {
 
-	$query = 'SELECT owner FROM stuff WHERE name = "' . $name . '"';
+	$query = 'SELECT owner FROM stuff WHERE id = "' . $id . '"';
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
 	check_results($results) ;
 	$row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ;
 	
-	
+	#gets the owners name if it is a lost items
 	if($row['owner'] != NULL){
-		$query = 'SELECT s.name, s.description, s.update_date, s.status, s.owner, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
+		$query = 'SELECT s.name, s.description, s.update_date, s.status, s.owner, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.id = "' . $id . '"';
 	}
-	
+	#else gets the finders name
 	else {
-		$query = 'SELECT s.name, s.description, s.update_date, s.status, s.finder, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
+		$query = 'SELECT s.name, s.description, s.update_date, s.status, s.finder, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.id = "' . $id . '"';
 	}
 	
-	show_query($query);
+	#show_query($query);
 	
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
@@ -399,7 +399,7 @@ function init($dbname){
 
 function search_results($dbc, $name, $status) {
 
-	$query = 'SELECT s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.status = "' . $status . '" AND (s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%") ORDER BY s.create_date DESC' ;
+	$query = 'SELECT s.id, s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.status = "' . $status . '" AND (s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%") ORDER BY s.create_date DESC' ;
 	#show_query($query);
 	
 	$results = mysqli_query($dbc, $query) ;
@@ -434,7 +434,7 @@ function search_results($dbc, $name, $status) {
 				$itemTime = strtotime($row['create_date']);
 
 				#generates a hyperlink for each item
-				$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
+				$alink = '<A HREF=iteminfo.php?itemid=' . $row['id'] . '>' . $row['name'] . '</A>' ;
 				
 				echo '<TR>' ;
 				echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
