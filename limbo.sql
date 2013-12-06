@@ -96,15 +96,15 @@ VALUES
 
 INSERT INTO stuff(location_id, name, description, create_date, room, finder, email, phone, status)
 VALUES 
-(15, 'iPhone', 'it is shiny', NOW(), '2020', 'Richard', 'email@email.com', '2345678999', 'found'),
+(15, 'iPhone', 'it is a shiny phone', NOW(), '2020', 'Richard', 'email@email.com', '2345678999', 'found'),
 (19, 'Wallet', 'cash money', NOW() - INTERVAL 1 MONTH, 'First Floor', 'Henry', 'email@email.com', '2345678999', 'found'),
-(5, 'Ring', 'extra shiny', NOW() - INTERVAL 3 MONTH, '207', 'Chris', 'email@email.com', '2345678999', 'found');
+(5, 'Ring', 'extra shiny jewelery', NOW() - INTERVAL 3 MONTH, '207', 'Chris', 'email@email.com', '2345678999', 'found');
 
 INSERT INTO stuff(location_id, name, description, create_date, room, owner, email, phone, status)
 VALUES 
-(21, 'Android', 'it is a robot', NOW(), '037', 'Ricky', 'email@email.com', '2345678999', 'lost'),
+(21, 'Android', 'it is a robot phone', NOW(), '037', 'Ricky', 'email@email.com', '2345678999', 'lost'),
 (32, 'Purse', 'pretty money', NOW() - INTERVAL 1 MONTH, 'Second Floor', 'Brian', 'email@email.com', '2345678999', 'lost'),
-(6, 'Necklace', 'jingles', NOW() - INTERVAL 3 MONTH, '207', 'Daniel', 'email@email.com', '2345678999', 'lost');
+(6, 'Necklace', 'shiny jingles jewelery ', NOW() - INTERVAL 3 MONTH, '207', 'Daniel', 'email@email.com', '2345678999', 'lost');
 
 INSERT INTO users(first_name, last_name, email, pass, reg_date)
 VALUES ('first', 'test', 'admin@admin.com', PASSWORD('gaze11e'), Now());
