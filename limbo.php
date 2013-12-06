@@ -14,11 +14,15 @@
 <h1>Welcome to Limbo!</h1>
 <h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>
 <h3 style='display:inline'>Reported in last </h3>
-<select style='margin-bottom:10px'>
-<option value='week'>7 days</option>
-<option value='month'>1 month</option>
-<option value='trimonth'>3 months</option>
+
+<form action="limbo.php" method="POST" style='display:inline'>
+<select id="timeFilter" name="timeFilter" style='margin-bottom:10px'>
+	<option value='0' selected="selected">7 days</option>
+	<option value='1'>1 month</option>
+	<option value='2'>3 months</option>
 </select>
+<p style='display:inline'><input type="submit"></p>
+<form>
 
 <?php
 require( 'includes/helpers.php' ) ;

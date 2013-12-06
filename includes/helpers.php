@@ -22,14 +22,52 @@ $results = mysqli_query($dbc, $query) ;
 		echo '<TH>Stuff</TH>';
 		echo '</TR>';
 
-			# For each row result, generate a table row
+		#sets timezone
+		date_default_timezone_set('America/New_York');
+
+		#one week, one month, and three months worth of seconds
+		$week = 7 * 24 * 60 * 60;
+		$month = $week * 30;
+		$trimonth = $month * 3;
+
+		$now = time();
+
+		$filter = 2;
+		$filterSeconds = $week;
+
+		#POST timeFilter to get its value
+		if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST'){
+			#values: 0, 1, 2
+			$filter = $_POST['timeFilter'];
+			if($filter == 0){
+				$filterSeconds = $week;
+			}
+			if($filter == 1){
+				$filterSeconds = $month;
+			}
+			if($filter == 2){
+				$filterSeconds = $trimonth;
+			}
+
+		$target = date('Y-m-d', ($now-$filterSeconds));
+		$targetTime = strtotime($target);
+
+		# For each row result, generate a table row
 		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
-			$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
-			echo '<TR>' ;
-			echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
-			echo '<TD>' . $row['status'] . '</TD>' ;
-			echo '<TD ALIGN=left>' . $alink . '</TD>' ;
-			echo '</TR>' ;
+
+			#convert create_date to time
+			$itemTime = strtotime($row['create_date']);
+
+			if($itemTime > $targetTime){
+
+				$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
+				echo '<TR>' ;
+				echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
+				echo '<TD>' . $row['status'] . '</TD>' ;
+				echo '<TD ALIGN=left>' . $alink . '</TD>' ;
+				echo '</TR>' ;
+
+			}
 		}
 
 		# End the table
