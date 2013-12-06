@@ -394,10 +394,11 @@ function init($dbname){
     return init($dbname);
 }
 
-function search_results($dbc, $name) {
+function search_results($dbc, $name, $status) {
 
-	$query = 'SELECT s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.status = "found" AND (s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%") ORDER BY s.create_date DESC' ;
-
+	$query = 'SELECT s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.status = "' . $status . '" AND (s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%") ORDER BY s.create_date DESC' ;
+	#show_query($query);
+	
 	$results = mysqli_query($dbc, $query) ;
 
 	if( $results ){
@@ -443,9 +444,16 @@ function search_results($dbc, $name) {
 			# End the table
 			echo '</TABLE>';
 			
-			echo '<form action="/lostform.php" method="get">
-					<input type="submit" value="No Matches?" />
-					</form>' ;
+			if($status == 'found'){
+				echo '<form action="/lostform.php" method="get">
+						<input type="submit" value="No Matches?" />
+						</form>' ;
+			}
+			else{
+				echo '<form action="/foundform.php" method="get">
+						<input type="submit" value="No Matches?" />
+						</form>' ;
+			}
 			
 			echo '<br>';
 		}

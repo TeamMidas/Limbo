@@ -30,7 +30,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'GET' && isset($_GET['search'])) {
 
 	$name = $_GET['search'] ;
 	
-	search_results($dbc, $name);
+	search_results($dbc, $name, 'found');
 
 }
 ?>
