@@ -103,7 +103,7 @@ if( $results ){
 
 		if($itemTime >= $targetTime){
 
-			$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
+			$alink = '<A HREF=iteminfo.php?itemid=' . $row['id'] . '>' . $row['name'] . '</A>' ;
 			$id = $row['id'] ;
 			echo '<TR>' ;
 			echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="remove" value = "' . $id . '"> <input type="submit" value = "" class = "redButton"> </form> </TD>' ;
