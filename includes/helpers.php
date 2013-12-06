@@ -26,13 +26,14 @@ $results = mysqli_query($dbc, $query) ;
 		date_default_timezone_set('America/New_York');
 
 		#one week, one month, and three months worth of seconds
-		$week = 7 * 24 * 60 * 60;
-		$month = $week * 30;
+		$day = 24 * 60 * 60;
+		$week = $day * 7;
+		$month = $day * 30;
 		$trimonth = $month * 3;
 
 		$now = time();
 
-		$filter = 2;
+		$filter = 0;
 		$filterSeconds = $week;
 
 		#POST timeFilter to get its value
@@ -59,7 +60,7 @@ $results = mysqli_query($dbc, $query) ;
 			#convert create_date to time
 			$itemTime = strtotime($row['create_date']);
 
-			if($itemTime > $targetTime){
+			if($itemTime >= $targetTime){
 
 				$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
 				echo '<TR>' ;
