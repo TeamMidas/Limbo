@@ -94,21 +94,21 @@ VALUES
 (Now(), Now(), 'Lower West Cedar Townhouses'),
 (Now(), Now(), 'Upper West Cedar Townhouses');
 
-INSERT INTO stuff(location_id, name, description, create_date, room, finder, email, phone, status)
+INSERT INTO stuff(location_id, name, description, create_date, update_date, room, finder, email, phone, status)
 VALUES 
-(15, 'iPhone', 'it is a shiny phone', NOW(), '2020', 'Richard', 'email@email.com', '2345678999', 'found'),
-(21, 'Windows Phone', 'it is a black phone', NOW(), 'LT121', 'James', 'email@email.com', '2345678999', 'found'),
-(24, 'Keys', 'has a marist keychain', NOW(), '', 'Jason', 'email@email.com', '2345678999', 'found'),
-(19, 'Wallet', 'cash money', NOW() - INTERVAL 1 MONTH, 'First Floor', 'Anthea', 'email@email.com', '2345678999', 'found'),
-(5, 'Ring', 'extra shiny jewelery', NOW() - INTERVAL 3 MONTH, '207', 'Chris', 'email@email.com', '2345678999', 'found');
+(15, 'iPhone', 'it is a shiny phone', NOW(), NOW(), '2020', 'Richard', 'email@email.com', '2345678999', 'found'),
+(21, 'Windows Phone', 'it is a black phone', NOW(), NOW(), 'LT121', 'James', 'email@email.com', '2345678999', 'found'),
+(24, 'Keys', 'has a marist keychain', NOW(), NOW(), '', 'Jason', 'email@email.com', '2345678999', 'found'),
+(19, 'Wallet', 'cash money', NOW() - INTERVAL 1 MONTH, NOW() - INTERVAL 2 MONTH, 'First Floor', 'Anthea', 'email@email.com', '2345678999', 'found'),
+(5, 'Ring', 'extra shiny jewelery', NOW() - INTERVAL 3 MONTH, NOW() - INTERVAL 4 MONTH, '207', 'Chris', 'email@email.com', '2345678999', 'found');
 
-INSERT INTO stuff(location_id, name, description, create_date, room, owner, email, phone, status)
+INSERT INTO stuff(location_id, name, description, create_date, update_date, room, owner, email, phone, status)
 VALUES 
-(21, 'Android', 'it is a robot phone', NOW(), '037', 'Ricky', 'email@email.com', '2345678999', 'lost'),
-(4, 'ID', 'my name was on it', NOW(), '', 'Jamie', 'email@email.com', '2345678999', 'lost'),
-(34, 'Racket', 'signed by Williams', NOW(), '', 'Linda', 'email@email.com', '2345678999', 'lost'),
-(32, 'Purse', 'pretty money', NOW() - INTERVAL 1 MONTH, 'Second Floor', 'Brian', 'email@email.com', '2345678999', 'lost'),
-(6, 'Necklace', 'shiny jingles jewelery ', NOW() - INTERVAL 3 MONTH, '207', 'Daniel', 'email@email.com', '2345678999', 'lost');
+(21, 'Android', 'it is a robot phone', NOW(), NOW(), '037', 'Ricky', 'email@email.com', '2345678999', 'lost'),
+(4, 'ID', 'my name was on it', NOW(), NOW(), '', 'Jamie', 'email@email.com', '2345678999', 'lost'),
+(34, 'Racket', 'signed by Williams', NOW(), NOW(), '', 'Linda', 'email@email.com', '2345678999', 'lost'),
+(32, 'Purse', 'pretty money', NOW() - INTERVAL 1 MONTH, NOW() - INTERVAL 2 MONTH, 'Second Floor', 'Brian', 'email@email.com', '2345678999', 'lost'),
+(6, 'Necklace', 'shiny jingles jewelery ', NOW() - INTERVAL 3 MONTH, NOW() - INTERVAL 4 MONTH, '207', 'Daniel', 'email@email.com', '2345678999', 'lost');
 
 INSERT INTO users(first_name, last_name, email, pass, reg_date)
 VALUES ('first', 'test', 'admin@admin.com', PASSWORD('gaze11e'), Now());

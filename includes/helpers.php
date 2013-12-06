@@ -134,12 +134,15 @@ function show_item($dbc, $name) {
 	
 	
 	if($row['owner'] != NULL){
-		$query = 'SELECT s.name, s.description, s.create_date, s.status, s.owner, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
+		$query = 'SELECT s.name, s.description, s.update_date, s.status, s.owner, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
 	}
 	
 	else {
-		$query = 'SELECT s.name, s.description, s.create_date, s.status, s.finder, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
+		$query = 'SELECT s.name, s.description, s.update_date, s.status, s.finder, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
 	}
+	
+	show_query($query);
+	
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
 	check_results($results) ;
@@ -157,7 +160,7 @@ function show_item($dbc, $name) {
 		
 		echo '<TR>' ;
 		echo '<TH>Date</TH>';
-		echo '<TD>' . date("d/m/Y", strtotime($row['create_date'])) . '</TD>' ;
+		echo '<TD>' . date("M d Y", strtotime($row['update_date'])) . '</TD>' ;
 		echo '</TR>' ;
 		echo '<TR>' ;
 		echo '<TH>Status</TH>';
@@ -321,7 +324,7 @@ function insert_lost($dbc, $first_name, $last_name, $phone_number, $email, $item
   $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
   $location_id = $row['id'];
 
-  $query = 'INSERT INTO stuff(location_id, name, description, create_date, owner, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "lost")' ;
+  $query = 'INSERT INTO stuff(location_id, name, description, create_date, update_date, owner, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ', NOW(), ' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "lost")' ;
  
   show_query($query);
 
@@ -343,7 +346,7 @@ function insert_found($dbc, $first_name, $last_name, $phone_number, $email, $ite
   $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
   $location_id = $row['id'];
 
-  $query = 'INSERT INTO stuff(location_id, name, description, create_date, finder, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ',' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "found")' ;
+  $query = 'INSERT INTO stuff(location_id, name, description, create_date, update_date, finder, email, phone, status) VALUES (' . $location_id . ',' . "'" . $item_name . "'" . ',' .  "'" . $description . "'". ', NOW(), ' . $createdate . ',' . "'" . $owner . "'" . ',' . "'" . $email . "'" . ',' . $phone_number . ', "found")' ;
  
   show_query($query);
 
