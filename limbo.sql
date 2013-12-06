@@ -1,4 +1,4 @@
--- Assignment 2
+-- Limbo Project
 -- Authors: Stanley Yang, Antony Liang
 -- Main Source File
 

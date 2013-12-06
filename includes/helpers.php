@@ -1,5 +1,5 @@
 <!--
-
+Limbo Project
 By: Stanley Yang, Antony Liang
 
 -->
@@ -388,6 +388,79 @@ function init($dbname){
 	sleep(1);
 
     return init($dbname);
+}
+
+function search_results($dbc, $name) {
+
+$query = 'SELECT s.name, s.description, s.create_date, s.status, s.owner, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
+	
+
+$query = 'SELECT s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%" ORDER BY s.create_date DESC' ;
+
+$results = mysqli_query($dbc, $query) ;
+
+	if( $results ){
+	  # starting the table.
+		
+		$row = mysqli_fetch_array( $results , MYSQLI_ASSOC );
+		
+		if($row ) {
+		
+			echo '<TABLE BORDER = 1>';
+			echo '<CAPTION> Potential Matches </CAPTION>';
+			echo '<TR>';
+			echo '<TH>Date</TH>';
+			echo '<TH>Name</TH>';
+			echo '<TH>Location Found</TH>';
+			echo '</TR>';
+
+			#sets timezone
+			date_default_timezone_set('America/New_York');
+
+			$week = mktime(0, 0, 0, date("m"), date("d")-7, date("Y"));
+			$month = mktime(0, 0, 0, date("m")-1, date("d"), date("Y"));
+			$trimonth = mktime(0, 0, 0, date("m")-3, date("d"), date("Y"));
+			$targetTime = $week;
+			$filter = 0;
+
+			# For each row result, generate a table row
+			do{
+
+				#convert create_date to time
+				$itemTime = strtotime($row['create_date']);
+
+				$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
+				echo '<TR>' ;
+				echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
+				echo '<TD ALIGN=left>' . $alink . '</TD>' ;
+				echo '<TD>' . $row['location'] . '</TD>';
+				echo '</TR>' ;
+
+			} while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ));
+
+			# End the table
+			echo '</TABLE>';
+			
+			echo '<form action="/lostform.php" method="get">
+					<input type="submit" value="No Matches?" />
+					</form>' ;
+			
+			echo '<br>';
+		}
+		
+		else{
+			
+			echo '<p>No Matches were found. Please try a more general term or submit a new entry</p>';
+		
+		}
+		
+		# Free up the results in memory
+		mysqli_free_result( $results ) ;
+		}
+	else {
+			# If we get here, something has gone wrong
+			echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+		}
 }
 
 ?>
