@@ -1,6 +1,7 @@
 <!--
-Stanley Yang
-Antony Liang
+Limbo Project
+By: Stanley Yang, Antony Liang
+
 -->
 
 <!DOCTYPE html>

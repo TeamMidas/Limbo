@@ -7,11 +7,11 @@ By: Stanley Yang, Antony Liang
 <?php
 $debug = true;
 
-# Shows the records in prints
+#home page table generation
 function show_stuff($dbc) {
-$query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC' ;
+	$query = 'SELECT create_date, status, name FROM stuff ORDER BY create_date DESC' ;
 
-$results = mysqli_query($dbc, $query) ;
+	$results = mysqli_query($dbc, $query) ;
 
 	if( $results ){
 	  # starting the table.
@@ -70,17 +70,17 @@ $results = mysqli_query($dbc, $query) ;
 
 		# Free up the results in memory
 		mysqli_free_result( $results ) ;
-		}
+	}
+		
 	else {
-			# If we get here, something has gone wrong
-			echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
-		}
+		echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+	}
 }
 
 function show_messages($dbc) {
-$query = 'SELECT id, name, create_date, email, subject, item_id, message FROM messages ORDER BY create_date DESC' ;
+	$query = 'SELECT id, name, create_date, email, subject, item_id, message FROM messages ORDER BY create_date DESC' ;
 
-$results = mysqli_query($dbc, $query) ;
+	$results = mysqli_query($dbc, $query) ;
 
 	if( $results ){
 	  # starting the table.
@@ -120,9 +120,8 @@ $results = mysqli_query($dbc, $query) ;
 		mysqli_free_result( $results ) ;
 		}
 	else {
-			# If we get here, something has gone wrong
-			echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
-		}
+		echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+	}
 }
 
 function show_item($dbc, $name) {
@@ -173,8 +172,6 @@ function show_item($dbc, $name) {
 		echo '<TD>' . $row['description'] . '</TD>' ;
 		echo '</TR>' ;
  
-
-  		# End the table
   		echo '</TABLE>';
 
 		echo '<button type="button" onclick="toggleInfo();">More Info</button>';
@@ -218,14 +215,14 @@ function show_query($query) {
     echo "<p>Query = $query</p>" ;
 }
 
-# Checks the query results as a debugging aid
+# The following are validation functions
 function check_results($results) {
   global $dbc;
 
   if($results != true)
     echo '<p>SQL ERROR = ' . mysqli_error( $dbc ) . '</p>'  ;
 }
-#checks if number is empty, non-numeric, or less than 0
+
 function valid_number($num){
   if(empty($num) || !is_numeric($num)){
     return false;
@@ -237,7 +234,7 @@ function valid_number($num){
   }
   return true;
 }
-#checks if the name is empty
+
 function valid_name($name){
   if(empty($name)){
     return false;
@@ -245,6 +242,7 @@ function valid_name($name){
   else
     return true;
 }
+
 function valid_phone($phone){
   if(empty($phone)){
     return false;
@@ -262,6 +260,7 @@ function valid_phone($phone){
   else
     return true;
 }
+
 function valid_email($email){
   if(empty($email) || (strpos($email, '@') === false)){
     return false;
@@ -269,6 +268,7 @@ function valid_email($email){
   else
     return true;
 }
+
 function valid_date($date){
   if(empty($date)){
     return false;
@@ -276,6 +276,7 @@ function valid_date($date){
   else
     return true;
 }
+
 function valid_description($description){
   if(empty($description)){
     return false;
@@ -283,6 +284,7 @@ function valid_description($description){
   else
     return true;
 }
+
 function valid_location($location){
 	if($location === "Select a location"){
 		return false;
@@ -385,24 +387,24 @@ function init($dbname){
 	$results = mysqli_multi_query($dbc, $sql);
 	mysqli_close( $dbc );
 	
+	#gives mysql some time to run through all the queries
 	sleep(1);
 
+	#recursive so I can guarantee a working connection
     return init($dbname);
 }
 
 function search_results($dbc, $name) {
 
-$query = 'SELECT s.name, s.description, s.create_date, s.status, s.owner, s.email, s.phone, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name = "' . $name . '"';
-	
+	$query = 'SELECT s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%" ORDER BY s.create_date DESC' ;
 
-$query = 'SELECT s.create_date, s.name, l.name AS location FROM stuff s INNER JOIN locations l ON l.id = s.location_id WHERE s.name LIKE "%' . $name . '%" OR s.description LIKE "%' . $name . '%" ORDER BY s.create_date DESC' ;
-
-$results = mysqli_query($dbc, $query) ;
+	$results = mysqli_query($dbc, $query) ;
 
 	if( $results ){
-	  # starting the table.
 		
 		$row = mysqli_fetch_array( $results , MYSQLI_ASSOC );
+		
+		#checks if row has anything in it before building the table
 		
 		if($row ) {
 		
@@ -425,11 +427,11 @@ $results = mysqli_query($dbc, $query) ;
 
 			# For each row result, generate a table row
 			do{
-
-				#convert create_date to time
 				$itemTime = strtotime($row['create_date']);
 
+				#generates a hyperlink for each item
 				$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
+				
 				echo '<TR>' ;
 				echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
 				echo '<TD ALIGN=left>' . $alink . '</TD>' ;
@@ -448,6 +450,7 @@ $results = mysqli_query($dbc, $query) ;
 			echo '<br>';
 		}
 		
+		#the query returned nothing
 		else{
 			
 			echo '<p>No Matches were found. Please try a more general term or submit a new entry</p>';
@@ -456,11 +459,12 @@ $results = mysqli_query($dbc, $query) ;
 		
 		# Free up the results in memory
 		mysqli_free_result( $results ) ;
-		}
+	}
+		
 	else {
-			# If we get here, something has gone wrong
-			echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
-		}
+		# If we get here, something has gone wrong
+		echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+	}
 }
 
 ?>

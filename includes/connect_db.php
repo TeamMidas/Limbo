@@ -1,3 +1,9 @@
+<!--
+Limbo Project
+By: Stanley Yang, Antony Liang
+
+-->
+
 <?php # CONNECT TO MySQL DATABASE.
 
 $dbc = @mysqli_connect ( 'localhost', 'root', '', 'limbo_db' )
