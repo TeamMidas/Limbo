@@ -48,6 +48,7 @@ $results = mysqli_query($dbc, $query) ;
 			if($filter == 2){
 				$filterSeconds = $trimonth;
 			}
+		}
 
 		$target = date('Y-m-d', ($now-$filterSeconds));
 		$targetTime = strtotime($target);
