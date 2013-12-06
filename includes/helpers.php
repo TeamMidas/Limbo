@@ -17,7 +17,7 @@ function show_stuff($dbc) {
 	  # starting the table.
 		echo '<TABLE BORDER = 1>';
 		echo '<TR>';
-		echo '<TH>Date</TH>';
+		echo '<TH>Reported On</TH>';
 		echo '<TH>Status</TH>';
 		echo '<TH>Stuff</TH>';
 		echo '</TR>';
@@ -159,7 +159,12 @@ function show_item($dbc, $id) {
 		echo '<h1>' . $row['name'] . '</h1>' ;
 		
 		echo '<TR>' ;
-		echo '<TH>Date</TH>';
+		if(isset($row['owner'])){
+			echo '<TH>Date Lost</TH>';
+		}
+		else{
+			echo '<TH>Date Found</TH>';
+		}
 		echo '<TD>' . date("M d Y", strtotime($row['update_date'])) . '</TD>' ;
 		echo '</TR>' ;
 		echo '<TR>' ;

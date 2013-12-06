@@ -64,7 +64,7 @@ if( $results ){
 	echo '<TABLE class="list">';
 	echo '<TR>';
 	echo '<TH class="none"></TH>' ;
-	echo '<TH>Date</TH>';
+	echo '<TH>Reported On</TH>';
 	echo '<TH>Status</TH>';
 	echo '<TH>Stuff</TH>';
 	echo '<TH class="none"></TH>';

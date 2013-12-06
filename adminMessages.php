@@ -23,6 +23,8 @@ By: Stanley Yang, Antony Liang
 
 <h1>Admin Messages</h1>
 
+<h4>Click on the messages to expand them</h4>
+
 <?php
 require( 'includes/connect_db.php' ) ;
 
