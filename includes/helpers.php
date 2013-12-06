@@ -32,9 +32,9 @@ function show_stuff($dbc) {
 		$filter = 0;
 
 		#POST timeFilter to get its value
-		if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST'){
+		if ($_SERVER[ 'REQUEST_METHOD' ] == 'GET' AND isset($_GET['timeFilter'])){
 			#values: 0, 1, 2
-			$filter = $_POST['timeFilter'];
+			$filter = $_GET['timeFilter'];
 			if($filter == 0){
 				$targetTime = $week;
 			}

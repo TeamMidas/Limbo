@@ -24,16 +24,19 @@ By: Stanley Yang, Antony Liang
 <h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>
 <h3 style='display:inline'>Reported in last </h3>
 
-<select style='margin-bottom:10px'>
-<option value='week'>7 days</option>
-<option value='month'>1 month</option>
-<option value='trimonth'>3 months</option>
+<form action="adminHome.php" method="GET" style='display:inline'>
+<select id="timeFilter" name="timeFilter" style='margin-bottom:10px'>
+	<option value='0' selected="selected">7 days</option>
+	<option value='1'>1 month</option>
+	<option value='2'>3 months</option>
 </select>
+<p style='display:inline'><input type="submit"></p>
+<form>
 
 <?php
 require( 'includes/connect_db.php' ) ;
 
-if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
 	$theID = -1;
 	
 	if(isset($_POST['remove'])){
@@ -54,45 +57,74 @@ $query = 'SELECT id, create_date, status, name FROM stuff ORDER BY create_date D
 
 $results = mysqli_query($dbc, $query) ;
 
-if( $results )
-{
+if( $results ){
 
-  $id = 0 ;
-  # But...wait until we know the query succeeded before
-  # starting the table.
-  echo '<TABLE class="list">';
-  echo '<TR>';
-  echo '<TH class="none"></TH>' ;
-  echo '<TH>Date</TH>';
-  echo '<TH>Status</TH>';
-  echo '<TH>Stuff</TH>';
-  echo '<TH class="none"></TH>';
-  echo '</TR>';
+	$id = 0 ;
+	
+	echo '<TABLE class="list">';
+	echo '<TR>';
+	echo '<TH class="none"></TH>' ;
+	echo '<TH>Date</TH>';
+	echo '<TH>Status</TH>';
+	echo '<TH>Stuff</TH>';
+	echo '<TH class="none"></TH>';
+	echo '</TR>';
+  
+  
+  	#sets timezone
+	date_default_timezone_set('America/New_York');
 
-  # For each row result, generate a table row
-  while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
-  {
-	$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
-	$id = $row['id'] ;
-    echo '<TR>' ;
-	echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="remove" value = "' . $id . '"> <input type="submit" value = "" class = "redButton"> </form> </TD>' ;
-    echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
-    echo '<TD>' . $row['status'] . '</TD>' ;
-    echo '<TD ALIGN=left>' . $alink . '</TD>' ;
-	echo '<TD ALIGN=left class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="claimed" value = "' . $id . '"> <input type="submit" value = "" class = "greenCheck"> </form> </TD>' ;
-	echo '</TR>' ;
-  }
+	$week = mktime(0, 0, 0, date("m"), date("d")-7, date("Y"));
+	$month = mktime(0, 0, 0, date("m")-1, date("d"), date("Y"));
+	$trimonth = mktime(0, 0, 0, date("m")-3, date("d"), date("Y"));
+	$targetTime = $week;
+	$filter = 0;
+	$targetTime = $week;
+	
+	#POST timeFilter to get its value
+	if ($_SERVER[ 'REQUEST_METHOD' ] == 'GET' AND isset($_GET['timeFilter'])){
+		#values: 0, 1, 2
+		$filter = $_GET['timeFilter'];
+		if($filter == 0){
+			$targetTime = $week;
+		}
+		if($filter == 1){
+			$targetTime = $month;
+		}
+		if($filter == 2){
+			$targetTime = $trimonth;
+		}
+	}
 
-  # End the table
-  echo '</TABLE>';
+	# For each row result, generate a table row
+	while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
+	
+		$itemTime = strtotime($row['create_date']);
 
-  # Free up the results in memory
-  mysqli_free_result( $results ) ;
+		if($itemTime >= $targetTime){
+
+			$alink = '<A HREF=iteminfo.php?itemname=' . $row['name'] . '>' . $row['name'] . '</A>' ;
+			$id = $row['id'] ;
+			echo '<TR>' ;
+			echo '<TD class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="remove" value = "' . $id . '"> <input type="submit" value = "" class = "redButton"> </form> </TD>' ;
+			echo '<TD>' . date("M d Y", strtotime($row['create_date'])) . '</TD>' ;
+			echo '<TD>' . $row['status'] . '</TD>' ;
+			echo '<TD ALIGN=left>' . $alink . '</TD>' ;
+			echo '<TD ALIGN=left class = "none"> <form action="adminHome.php" method="POST"> <input type="hidden" name="claimed" value = "' . $id . '"> <input type="submit" value = "" class = "greenCheck"> </form> </TD>' ;
+			echo '</TR>' ;
+			
+		}
+	}
+
+	# End the table
+	echo '</TABLE>';
+
+	# Free up the results in memory
+	mysqli_free_result( $results ) ;
 }
-else
-{
-  # If we get here, something has gone wrong
-  echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+else{
+	# If we get here, something has gone wrong
+	echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
 }
 
 ?>

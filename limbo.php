@@ -21,7 +21,7 @@ By: Stanley Yang, Antony Liang
 <h4 style='margin-top:-15px'>If you lost or found something, you're in luck: this is the place to report it.</h4>
 <h3 style='display:inline'>Reported in last </h3>
 
-<form action="limbo.php" method="POST" style='display:inline'>
+<form action="limbo.php" method="GET" style='display:inline'>
 <select id="timeFilter" name="timeFilter" style='margin-bottom:10px'>
 	<option value='0' selected="selected">7 days</option>
 	<option value='1'>1 month</option>
