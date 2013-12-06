@@ -25,34 +25,27 @@ $results = mysqli_query($dbc, $query) ;
 		#sets timezone
 		date_default_timezone_set('America/New_York');
 
-		#one week, one month, and three months worth of seconds
-		$day = 24 * 60 * 60;
-		$week = $day * 7;
-		$month = $day * 30;
-		$trimonth = $month * 3;
-
-		$now = time();
-
+		$week = mktime(0, 0, 0, date("m"), date("d")-7, date("Y"));
+		$month = mktime(0, 0, 0, date("m")-1, date("d"), date("Y"));
+		$trimonth = mktime(0, 0, 0, date("m")-3, date("d"), date("Y"));
+		$targetTime = $week;
 		$filter = 0;
-		$filterSeconds = $week;
 
 		#POST timeFilter to get its value
 		if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST'){
 			#values: 0, 1, 2
 			$filter = $_POST['timeFilter'];
 			if($filter == 0){
-				$filterSeconds = $week;
+				$targetTime = $week;
 			}
 			if($filter == 1){
-				$filterSeconds = $month;
+				$targetTime = $month;
 			}
 			if($filter == 2){
-				$filterSeconds = $trimonth;
+				$targetTime = $trimonth;
 			}
 		}
 
-		$target = date('Y-m-d', ($now-$filterSeconds));
-		$targetTime = strtotime($target);
 
 		# For each row result, generate a table row
 		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
